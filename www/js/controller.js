@@ -7,6 +7,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('Tabfirst', function($scope) {
-  console.log('Tabfirst');
+  
   app.initialize1();
+  console.log('Tabfirst');
 });

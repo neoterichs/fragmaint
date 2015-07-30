@@ -49,6 +49,7 @@
 					</ul>
 					<button id="refreshButton">Refresh</button>
             	</div>
+				
         	</div>
 			<p>
             <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Send Data</a>
@@ -59,13 +60,58 @@
 
     <script id="templates/facts.html" type="text/ng-template">
       <ion-view view-title="Facts">
-        <ion-content class="padding">
+        <ion-content>
           <div id="detailPage">
 			<div id="batteryState"></div>
-			 <button id="sendButton">Send data</button>
-			 <button id="readButton">Read data</button>
-			<button id="batteryStateButton">Read Battery State</button>
-			<button id="disconnectButton">Disconnect</button>
+				<ul class="list">
+
+				  <li class="item item-toggle">
+					 P1
+					 <label class="toggle toggle-balanced" id="sendButton">
+					   <input type="checkbox">
+					   <div class="track">
+						 <div class="handle"></div>
+					   </div>
+					 </label>
+				  </li>
+				  
+				<li class="item item-toggle">
+					 P2
+					 <label class="toggle toggle-balanced" id="sendButton1">
+					   <input type="checkbox">
+					   <div class="track">
+						 <div class="handle"></div>
+					   </div>
+					 </label>
+				  </li>
+				  
+				  <li class="item item-toggle">
+					 P3
+					 <label class="toggle toggle-balanced" id="sendButton2">
+					   <input type="checkbox">
+					   <div class="track">
+						 <div class="handle"></div>
+					   </div>
+					 </label>
+				  </li>
+				  
+				  <li class="item item-toggle">
+					 P4
+					 <label class="toggle toggle-balanced" id="sendButton3">
+					   <input type="checkbox">
+					   <div class="track">
+						 <div class="handle"></div>
+					   </div>
+					 </label>
+				  </li>
+				
+				</ul>
+				  
+				<button id="disconnectButton" class="button button-full button-assertive">
+				  Disconnect
+				</button>
+				
+			 	
 		</div>
         </ion-content>
       </ion-view>

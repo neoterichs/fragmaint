@@ -33,9 +33,11 @@ var app = {
 		deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
     },
 	bindEvents1: function() {
-        disconnectButton.addEventListener('touchstart', this.disconnect, false);
+		disconnectButton.addEventListener('touchstart', this.disconnect, false);
         sendButton.addEventListener('touchstart', this.sendData, false);
-		readButton.addEventListener('touchstart', this.readBatteryState, false);
+		 sendButton1.addEventListener('touchstart', this.sendData1, false);
+		  sendButton2.addEventListener('touchstart', this.sendData2, false);
+		   sendButton3.addEventListener('touchstart', this.sendData3, false);
 	},
     onDeviceReady: function() {
         app.refreshDeviceList();
@@ -61,8 +63,7 @@ var app = {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
 				ble.notify(deviceId,battery.service,battery.char,app.onBatteryLevelChange,app.onError);
-				batteryStateButton.dataset.deviceId = deviceId;
-                disconnectButton.dataset.deviceId = deviceId;
+				disconnectButton.dataset.deviceId = deviceId;
                 app.showDetailPage();
 			};
 		ble.connect(deviceId,onConnect,app.onError);
@@ -74,12 +75,24 @@ var app = {
         batteryState.innerHTML = a;
     },
     disconnect: function(event) {
-        var deviceId = event.target.dataset.deviceId;
-        ble.disconnect(deviceId, app.showMainPage, app.onError);
+		console.log("c");
+        ble.disconnect(global_deviceid,app.showMainPage,app.onError);
     },
 	sendData: function(event) {
-		var data = stringToBytes("hello");
+		var data = stringToBytes("P11\n");
 		deviceList.innerHTML = "sending";
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+	},
+	sendData1: function(event) {
+		var data = stringToBytes("P21\n");
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+	},
+	sendData2: function(event) {
+		var data = stringToBytes("P31\n");
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+	},
+	sendData3: function(event) {
+		var data = stringToBytes("P41\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
