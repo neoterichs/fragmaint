@@ -6,7 +6,7 @@ var global_deviceid = "";
 //ascii array
 function Bytesarray(string) {
 	var array = string.split(",");
-   	return array;
+   	return array.buffer;
 }
 
 //string to ascii
@@ -95,22 +95,22 @@ var app = {
 	sendData1: function(event) {
 		var data = "";
 		var x = checkbox2.checked;
-		if(x)data = Bytesarray("0x02,0x02,0x01,0x01,0x03,0x0D,0x0A");
-		else data = Bytesarray("0x02,0x02,0x00,0x01,0x03,0x0D,0x0A");
+		if(x)data = stringToBytes("0x020x020x010x010x030x0D0x0A");
+		else data = stringToBytes("0x020x020x000x010x030x0D0x0A");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
 		var data = "";
 		var x = checkbox3.checked;
-		if(x)data = Bytesarray("0x02,0x03,0x01,0x01,0x03,0x0D,0x0A");
-		else data = Bytesarray("0x02,0x03,0x00,0x01,0x03,0x0D,0x0A");
+		if(x)data = stringToBytes("P31\n");
+		else data = stringToBytes("P30\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData3: function(event) {
 		var data = "";
 		var x = checkbox4.checked;
-		if(x)data = Bytesarray("0x02,0x04,0x01,0x01,0x03,0x0D,0x0A");
-		else data = Bytesarray("0x02,0x04,0x00,0x01,0x03,0x0D,0x0A");
+		if(x)data = stringToBytes("P41\n");
+		else data = stringToBytes("P40\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
