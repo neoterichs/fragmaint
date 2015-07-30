@@ -43,6 +43,7 @@ var app = {
         app.refreshDeviceList();
     },
     refreshDeviceList: function() {
+		console.log("d");
         deviceList.innerHTML = ''; // empties the list
         // scan for all devices
         ble.scan([], 5, app.onDiscoverDevice, app.onError);
@@ -53,15 +54,14 @@ var app = {
             html = '<b>' + device.name + '</b><br/>' +
                 'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
                 device.id;
-
-        listItem.dataset.deviceId = device.id;  // TODO
+		listItem.dataset.deviceId = device.id;  // TODO
         listItem.innerHTML = html;
         deviceList.appendChild(listItem);
-		global_deviceid = device.id;
-    },
+	},
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
+				global_deviceid = deviceId;
 				ble.notify(deviceId,battery.service,battery.char,app.onBatteryLevelChange,app.onError);
 				disconnectButton.dataset.deviceId = deviceId;
                 app.showDetailPage();
@@ -72,7 +72,7 @@ var app = {
         console.log(data);
         var message;
         var a = bytesToString(data);
-        batteryState.innerHTML = a;
+        //batteryState.innerHTML = a;
     },
     disconnect: function(event) {
 		ble.disconnect(global_deviceid,app.showMainPage,app.onError);
