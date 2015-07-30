@@ -73,6 +73,7 @@ var app = {
     },
 	sendData: function(event) {
 		var data = stringToBytes("hello");
+		deviceList.innerHTML = "sending";
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {

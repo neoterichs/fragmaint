@@ -44,7 +44,7 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
       views: {
         'menuContent' :{
           templateUrl: "templates/setting.html",
-		  controller: "CheckinCtrl"
+		  controller: "setting"
         }
       }
     })
