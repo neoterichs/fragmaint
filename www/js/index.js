@@ -26,6 +26,7 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
+        batteryStateButton.addEventListener('touchstart', this.readBatteryState, false);
         disconnectButton.addEventListener('touchstart', this.disconnect, false);
         deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
 		sendButton.addEventListener('touchstart', this.sendData, false);
@@ -73,7 +74,6 @@ var app = {
     },
 	sendData: function(event) {
 		var data = stringToBytes("hello");
-		deviceList.innerHTML = "sending";
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
