@@ -21,16 +21,16 @@
 
 	<script id="templates/tabs.html" type="text/ng-template">
       <ion-tabs class="tabs-icon-top tabs-positive">
-
-        <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+		<ion-tab title="Home" icon="ion-home" href="#/tab/home">
           <ion-nav-view name="home-tab"></ion-nav-view>
         </ion-tab>
-
-        <ion-tab title="About" icon="ion-ios-information" href="#/tab/about">
+		<ion-tab title="Settings" icon="ion-android-settings" href="#/tab/setting">
+          <ion-nav-view name="setting-tab"></ion-nav-view>
+        </ion-tab>
+		<ion-tab title="About" icon="ion-ios-information" href="#/tab/about">
           <ion-nav-view name="about-tab"></ion-nav-view>
         </ion-tab>
-
-        <ion-tab title="Contact" icon="ion-ios-world" ui-sref="tabs.contact">
+		<ion-tab title="Contact" icon="ion-ios-world" ui-sref="tabs.contact">
           <ion-nav-view name="contact-tab"></ion-nav-view>
         </ion-tab>
 
@@ -39,26 +39,51 @@
 
     <script id="templates/home.html" type="text/ng-template">
       <ion-view view-title="Home">
-        <ion-content class="padding">
-          <div class="app">
-            <p style="text-align:center; padding-top: 20px;">Choose a peripheral</p>
+        <ion-content>
+		<div class="bar  bar-header bar-stable">
+  			<h1 class="title">Choose a peripheral</h1>
+			<a id="refreshButton" class="item-icon-right item-icon-right"><i class="icon ion-refresh icon-right"></i></a>
+		</div>
+          <div class="app" style="padding-top:50px;">
             <div id="mainPage">
             	<div id="jsondevicelist"></div>
 					<ul id="deviceList">
 					</ul>
-					<button id="refreshButton">Refresh</button>
-            	</div>
-				
-        	</div>
-			<p>
+				</div>
+			</div>
+			<!--<p>
             <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Send Data</a>
-          	</p>
+          	</p>-->
         </ion-content>
       </ion-view>
     </script>
 
     <script id="templates/facts.html" type="text/ng-template">
       <ion-view view-title="Facts">
+        <ion-content>
+     	</ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/facts2.html" type="text/ng-template">
+      <ion-view view-title="Also Factual">
+        <ion-content class="padding">
+          <p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
+          <p>1 in every 4 Americans has appeared on T.V.</p>
+          <p>11% of the world is left-handed.</p>
+          <p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
+          <p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
+          <p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and dont die throughout the movie.</p>
+          <p>
+            <a class="button icon ion-home" href="#/tab/home"> Home</a>
+            <a class="button icon ion-chevron-left" href="#/tab/facts"> Scientific Facts</a>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+	<script id="templates/setting.html" type="text/ng-template">
+      <ion-view view-title="Settings">
         <ion-content>
           <div id="detailPage">
 			<div id="batteryState"></div>
@@ -112,23 +137,6 @@
 				
 			 	
 		</div>
-        </ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/facts2.html" type="text/ng-template">
-      <ion-view view-title="Also Factual">
-        <ion-content class="padding">
-          <p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
-          <p>1 in every 4 Americans has appeared on T.V.</p>
-          <p>11% of the world is left-handed.</p>
-          <p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
-          <p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
-          <p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and dont die throughout the movie.</p>
-          <p>
-            <a class="button icon ion-home" href="#/tab/home"> Home</a>
-            <a class="button icon ion-chevron-left" href="#/tab/facts"> Scientific Facts</a>
-          </p>
         </ion-content>
       </ion-view>
     </script>

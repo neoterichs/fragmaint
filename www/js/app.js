@@ -20,9 +20,8 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
       url: "/facts",
       views: {
         'home-tab': {
-          templateUrl: "templates/facts.html",
-		  controller: 'Tabfirst'
-        }
+          templateUrl: "templates/facts.html"
+		}
       }
     })
     .state('tabs.facts2', {
@@ -30,6 +29,15 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
       views: {
         'home-tab': {
           templateUrl: "templates/facts2.html"
+        }
+      }
+    })
+	.state('tabs.setting', {
+      url: "/setting",
+      views: {
+        'setting-tab': {
+          templateUrl: "templates/setting.html",
+		  controller: 'settingCTRL'
         }
       }
     })
@@ -41,6 +49,7 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
         }
       }
     })
+	
     .state('tabs.navstack', {
       url: "/navstack",
       views: {

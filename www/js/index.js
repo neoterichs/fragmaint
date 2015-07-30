@@ -33,12 +33,11 @@ var app = {
 		deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
     },
 	bindEvents1: function() {
-		
 		disconnectButton.addEventListener('touchstart', this.disconnect, false);
-        sendButton.addEventListener('touchstart', this.sendData, false);
-		 sendButton1.addEventListener('touchstart', this.sendData1, false);
-		  sendButton2.addEventListener('touchstart', this.sendData2, false);
-		   sendButton3.addEventListener('touchstart', this.sendData3, false);
+		sendButton.addEventListener('touchstart', this.sendData, false);
+		sendButton1.addEventListener('touchstart', this.sendData1, false);
+		sendButton2.addEventListener('touchstart', this.sendData2, false);
+		sendButton3.addEventListener('touchstart', this.sendData3, false);
 	},
     onDeviceReady: function() {
         app.refreshDeviceList();

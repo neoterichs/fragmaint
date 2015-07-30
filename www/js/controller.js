@@ -6,8 +6,8 @@ angular.module('starter.controllers', [])
   app.initialize();
 })
 
-.controller('Tabfirst', function($scope) {
+.controller('settingCTRL', function($scope) {
   
   app.initialize1();
-  console.log('Tabfirst');
+  console.log('settingCTRL');
 });
