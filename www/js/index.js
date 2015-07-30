@@ -104,8 +104,13 @@ var app = {
 	sendData1: function(event) {
 		var data = "";
 		var x = checkbox2.checked;
-		if(x)data = stringToBytes("0x020x020x010x010x030x0D0x0A");
-		else data = stringToBytes("0x020x020x000x010x030x0D0x0A");
+		data[0] = "0x02";
+		data[1] = "0x01";
+		data[2] = "0x01";
+		data[3] = "0x01";
+		data[4] = "0x03";
+		data[5] = "0x0D";
+		data[6] = "0x0A";
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
