@@ -48,6 +48,17 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
         }
       }
     })
+
+	.state('eventmenu.changepassword', {
+		  url: "/changepassword",
+		  views: {
+			'menuContent' :{
+			  templateUrl: "templates/changepassword.html",
+			  controller: "setting"
+			}
+		  }
+		})
+	
   $urlRouterProvider.otherwise("/sign-in");
 })
 
