@@ -19,17 +19,22 @@ function bytesToString(buffer) {
 var battery = {service: "FFE0",level: "2A19",char:"FFE1"};
 
 var app = {
-    initialize: function() {
-        this.bindEvents();
-        detailPage.hidden = true;
+    	initialize: function() {
+     	this.bindEvents();
+        //detailPage.hidden = true;
+    },
+	initialize1: function() {
+     	this.bindEvents1();
+		//detailPage.hidden = true;
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
-        batteryStateButton.addEventListener('touchstart', this.readBatteryState, false);
+		refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
+		deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
+    },
+	bindEvents1: function() {
         disconnectButton.addEventListener('touchstart', this.disconnect, false);
-        deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
-		sendButton.addEventListener('touchstart', this.sendData, false);
+        sendButton.addEventListener('touchstart', this.sendData, false);
 		readButton.addEventListener('touchstart', this.readBatteryState, false);
 	},
     onDeviceReady: function() {
@@ -74,6 +79,7 @@ var app = {
     },
 	sendData: function(event) {
 		var data = stringToBytes("hello");
+		deviceList.innerHTML = "sending";
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {

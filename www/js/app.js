@@ -1,114 +1,63 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
-
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-
-    // just checking if the BLE plugin works
-    ble.isEnabled(
-        function() {
-            console.log("Bluetooth is enabled");
-        },
-        function() {
-            console.log("Bluetooth is *not* enabled");
-            alert("Bluetooth is *not* enabled");
-        }
-    );
-
-  });
-})
-
+angular.module('ionicApp', ['ionic','starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
-
-  // setup an abstract state for the tabs directive
-    .state('tab', {
-    url: "/tab",
-    abstract: true,
-    templateUrl: "templates/tabs.html"
-  })
-
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-      url: '/chats',
+    .state('tabs', {
+      url: "/tab",
+      abstract: true,
+      templateUrl: "templates/tabs.html"
+    })
+    .state('tabs.home', {
+      url: "/home",
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'home-tab': {
+          templateUrl: "templates/home.html",
+          controller: 'HomeTabCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+    .state('tabs.facts', {
+      url: "/facts",
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'home-tab': {
+          templateUrl: "templates/facts.html",
+		  controller: 'Tabfirst'
         }
       }
     })
-
-    .state('tab.ble', {
-      url: '/ble',
+    .state('tabs.facts2', {
+      url: "/facts2",
       views: {
-        'tab-ble': {
-          templateUrl: 'templates/tab-ble.html',
-          controller: 'BLECtrl'
+        'home-tab': {
+          templateUrl: "templates/facts2.html"
         }
       }
     })
-    .state('tab.ble-detail', {
-      url: '/ble/:deviceId',
+    .state('tabs.about', {
+      url: "/about",
       views: {
-        'tab-ble': {
-          templateUrl: 'templates/ble-detail.html',
-          controller: 'BLEDetailCtrl'
+        'about-tab': {
+          templateUrl: "templates/about.html"
         }
       }
-  })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+    })
+    .state('tabs.navstack', {
+      url: "/navstack",
+      views: {
+        'about-tab': {
+          templateUrl: "templates/nav-stack.html"
+        }
       }
-    }
-  });
+    })
+    .state('tabs.contact', {
+      url: "/contact",
+      views: {
+        'contact-tab': {
+          templateUrl: "templates/contact.html"
+        }
+      }
+    });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+	$urlRouterProvider.otherwise("/tab/home");
 
-});
+})
