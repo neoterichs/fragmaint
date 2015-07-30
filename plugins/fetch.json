@@ -1,0 +1,43 @@
+{
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-inappbrowser": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-inappbrowser"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "de.appplant.cordova.plugin.local-notification": {
+        "source": {
+            "type": "local",
+            "path": "E:\\cordova-plugin"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.randdusing.bluetoothle": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/randdusing/BluetoothLE",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.megster.cordova.ble": {
+        "source": {
+            "type": "registry",
+            "id": "com.megster.cordova.ble"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}

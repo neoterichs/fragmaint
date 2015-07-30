@@ -1,0 +1,38 @@
+
+h1 {
+    text-align: center;
+}
+
+
+#mainPage {
+    text-align:center;
+}
+
+#detailPage {
+    text-align:center;
+    font-size: 2em;
+}
+
+#detailPage div {
+    margin: 20px;
+}
+
+#detailPage button {
+    margin-top: 40px;
+    font-size: 0.6em; /* undo 2em from parent */
+}
+
+ul {
+    list-style: none;
+    border-bottom: 1px solid #d3d3d3;    
+    text-align: left;
+}
+
+li {
+   padding: 5px;        
+    padding-top: 10px;
+    min-height: 50px;
+    border-top: 1px solid #d3d3d3;    
+    font-size: 0.9em;
+}
+
