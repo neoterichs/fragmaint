@@ -33,6 +33,7 @@ var app = {
 		deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
     },
 	bindEvents1: function() {
+		
 		disconnectButton.addEventListener('touchstart', this.disconnect, false);
         sendButton.addEventListener('touchstart', this.sendData, false);
 		 sendButton1.addEventListener('touchstart', this.sendData1, false);
@@ -75,29 +76,38 @@ var app = {
         batteryState.innerHTML = a;
     },
     disconnect: function(event) {
-		console.log("c");
-        ble.disconnect(global_deviceid,app.showMainPage,app.onError);
+		ble.disconnect(global_deviceid,app.showMainPage,app.onError);
     },
 	sendData: function(event) {
-		var data = stringToBytes("P11\n");
-		deviceList.innerHTML = "sending";
+		//deviceList.innerHTML = "sending";
+		var data = "";
+		var x = checkbox1.checked;
+		if(x)data = stringToBytes("P11\n");
+		else data = stringToBytes("P10\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData1: function(event) {
-		var data = stringToBytes("P21\n");
+		var data = "";
+		var x = checkbox2.checked;
+		if(x)data = stringToBytes("P21\n");
+		else data = stringToBytes("P20\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
-		var data = stringToBytes("P31\n");
+		var data = "";
+		var x = checkbox3.checked;
+		if(x)data = stringToBytes("P31\n");
+		else data = stringToBytes("P30\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData3: function(event) {
-		var data = stringToBytes("P41\n");
+		var data = "";
+		var x = checkbox4.checked;
+		if(x)data = stringToBytes("P41\n");
+		else data = stringToBytes("P40\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
-        mainPage.hidden = false;
-        detailPage.hidden = true;
     },
     showDetailPage: function() {
         mainPage.hidden = true;
