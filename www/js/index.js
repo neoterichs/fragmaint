@@ -3,22 +3,6 @@
 //global uuid id
 var global_deviceid = "";
 
-//ascii array
-function Bytesarray(string) {
-	var array = string.split(",");
-   	return array.buffer;
-}
-
-//string to ascii
-function stringToBytes1(string) {
-var string1 = string.split(",");
-   var array = new Uint8Array(string1.length);
-   for (var i = 0, l = string1.length; i < l; i++) {
-	   array[i] = string1.charCodeAt(i);
-	}
-	return array.buffer;
-}
-
 //string to ascii
 function stringToBytes(string) {
    var array = new Uint8Array(string.length);
@@ -100,8 +84,8 @@ var app = {
 		//0x02	0x01	0x00	0x01	0x03	0x0D	0x0A
 		//if(x)data = Bytesarray("0x02,0x01,0x01,0x01,0x03,0x0D,0x0A");
 		//else data = Bytesarray("0x02,0x01,0x00,0x01,0x03,0x0D,0x0A");
-		if(x)data = stringToBytes1("0x02,0x02,0x01,0x01,0x03,0x0D,0x0A");
-		else data = stringToBytes1("0x02,0x02,0x00,0x01,0x03,0x0D,0x0A");
+		if(x)data = stringToBytes("0x02,0x02,0x01,0x01,0x03,0x0D,0x0A");
+		else data = stringToBytes("0x02,0x02,0x00,0x01,0x03,0x0D,0x0A");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData1: function(event) {
@@ -135,15 +119,3 @@ var app = {
        // alert("ERROR: " + reason); // real apps should use notification.alert
     }
 };
-
-
-function stringToBytes(string) {
-   	var array = new Uint8Array(string.length);
-	alert("a");
-   	for (var i = 0, l = string.length; i < l; i++) {
-	   array[i] = string.charCodeAt(i);
-	}
-	return array.buffer;
-	}
-​ var x = stringToBytes("hello");
-document.getElementById("demo").innerHTML = x;
