@@ -87,36 +87,36 @@ var app = {
 	sendData: function(event) {
 		var data = "";
 		var x = checkbox1.checked;
-		if(x)data = stringToBytes("21113\n");
-		else data = stringToBytes("21013\n");
+		if(x)data = stringToBytes("a21113b\n");
+		else data = stringToBytes("a21013b\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData1: function(event) {
 		var data = "";
 		var x = checkbox2.checked;
-		if(x)data = stringToBytes("22113\n");
-		else data = stringToBytes("22013\n");
+		if(x)data = stringToBytes("a22113b\n");
+		else data = stringToBytes("a22013b\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
 		var data = "";
 		var x = checkbox3.checked;
-		if(x)data = stringToBytes("23113\n");
-		else data = stringToBytes("23013\n");
+		if(x)data = stringToBytes("a23113b\n");
+		else data = stringToBytes("a23013b\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData3: function(event) {
 		var data = "";
 		var x = checkbox4.checked;
-		if(x)data = stringToBytes("24113\n");
-		else data = stringToBytes("24013\n");
+		if(x)data = stringToBytes("a24113b\n");
+		else data = stringToBytes("a24013b\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
     },
     showDetailPage: function() {
-        mainPage.hidden = true;
-        detailPage.hidden = false;
+        //mainPage.hidden = true;
+        //detailPage.hidden = false;
     },
 	onError: function(reason) {
        // alert("ERROR: " + reason); // real apps should use notification.alert
