@@ -10,6 +10,16 @@ function Bytesarray(string) {
 }
 
 //string to ascii
+function stringToBytes1(string) {
+var string1 = string.split(",");
+   var array = new Uint8Array(string1.length);
+   for (var i = 0, l = string1.length; i < l; i++) {
+	   array[i] = string1.charCodeAt(i);
+	}
+	return array.buffer;
+}
+
+//string to ascii
 function stringToBytes(string) {
    var array = new Uint8Array(string.length);
    for (var i = 0, l = string.length; i < l; i++) {
@@ -78,7 +88,7 @@ var app = {
         console.log(data);
         var message;
         var a = bytesToString(data);
-        //batteryState.innerHTML = a;
+       	batteryState.innerHTML = a;
     },
     disconnect: function(event) {
 		ble.disconnect(global_deviceid,app.showMainPage,app.onError);
@@ -90,27 +100,15 @@ var app = {
 		//0x02	0x01	0x00	0x01	0x03	0x0D	0x0A
 		//if(x)data = Bytesarray("0x02,0x01,0x01,0x01,0x03,0x0D,0x0A");
 		//else data = Bytesarray("0x02,0x01,0x00,0x01,0x03,0x0D,0x0A");
-		
-		data[0] = 0x02;
-		data[1] = 0x01;
-		data[2] = 0x01;
-		data[3] = 0x01;
-		data[4] = 0x03;
-		data[5] = 0x0D;
-		data[6] = 0x0A;
-		
+		if(x)data = stringToBytes1("0x02,0x02,0x01,0x01,0x03,0x0D,0x0A");
+		else data = stringToBytes1("0x02,0x02,0x00,0x01,0x03,0x0D,0x0A");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData1: function(event) {
 		var data = "";
 		var x = checkbox2.checked;
-		data[0] = "0x02";
-		data[1] = "0x01";
-		data[2] = "0x01";
-		data[3] = "0x01";
-		data[4] = "0x03";
-		data[5] = "0x0D";
-		data[6] = "0x0A";
+		if(x)data = stringToBytes("0x020x020x010x010x030x0D0x0A");
+		else data = stringToBytes("0x020x020x000x010x030x0D0x0A");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
@@ -137,3 +135,15 @@ var app = {
        // alert("ERROR: " + reason); // real apps should use notification.alert
     }
 };
+
+
+function stringToBytes(string) {
+   	var array = new Uint8Array(string.length);
+	alert("a");
+   	for (var i = 0, l = string.length; i < l; i++) {
+	   array[i] = string.charCodeAt(i);
+	}
+	return array.buffer;
+	}
+​ var x = stringToBytes("hello");
+document.getElementById("demo").innerHTML = x;
