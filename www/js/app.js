@@ -1,114 +1,178 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
-
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-
-    // just checking if the BLE plugin works
-    ble.isEnabled(
-        function() {
-            console.log("Bluetooth is enabled");
-        },
-        function() {
-            console.log("Bluetooth is *not* enabled");
-            alert("Bluetooth is *not* enabled");
-        }
-    );
-
-  });
-})
-
+angular.module('ionicApp', ['ionic','starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
-
-  // setup an abstract state for the tabs directive
-    .state('tab', {
-    url: "/tab",
-    abstract: true,
-    templateUrl: "templates/tabs.html"
-  })
-
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-      url: '/chats',
+    .state('tabs', {
+      url: "/tab",
+      abstract: true,
+      templateUrl: "templates/tabs.html"
+    })
+    .state('tabs.home', {
+      url: "/home",
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'home-tab': {
+          templateUrl: "templates/home.html",
+          controller: 'HomeTabCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+    .state('tabs.facts', {
+      url: "/facts",
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'home-tab': {
+          templateUrl: "templates/facts.html"
+		}
+      }
+    })
+    .state('tabs.facts2', {
+      url: "/facts2",
+      views: {
+        'home-tab': {
+          templateUrl: "templates/facts2.html"
         }
       }
     })
-
-    .state('tab.ble', {
-      url: '/ble',
+	.state('tabs.setting', {
+      url: "/setting",
       views: {
-        'tab-ble': {
-          templateUrl: 'templates/tab-ble.html',
-          controller: 'BLECtrl'
+        'setting-tab': {
+          templateUrl: "templates/setting.html",
+		  controller: 'settingCTRL'
         }
       }
     })
-    .state('tab.ble-detail', {
-      url: '/ble/:deviceId',
+    .state('tabs.about', {
+      url: "/about",
       views: {
-        'tab-ble': {
-          templateUrl: 'templates/ble-detail.html',
-          controller: 'BLEDetailCtrl'
+        'about-tab': {
+          templateUrl: "templates/about.html"
         }
       }
-  })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+    })
+	
+    .state('tabs.navstack', {
+      url: "/navstack",
+      views: {
+        'about-tab': {
+          templateUrl: "templates/nav-stack.html"
+        }
       }
-    }
-  });
+    })
+    .state('tabs.contact', {
+      url: "/contact",
+      views: {
+        'contact-tab': {
+          templateUrl: "templates/contact.html"
+        }
+      }
+    });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+	$urlRouterProvider.otherwise("/tab/home");
 
-});
+})
+
+
+
+.service('ble', function($rootScope,$ionicPopup){
+	
+//global uuid id
+var global_deviceid = "";
+
+//string to ascii
+function stringToBytes(string) {
+   var array = new Uint8Array(string.length);
+   for (var i = 0, l = string.length; i < l; i++) {
+	   array[i] = string.charCodeAt(i);
+	}
+	return array.buffer;
+}
+
+//ascii to string
+function bytesToString(buffer) {
+		return String.fromCharCode.apply(null, new Uint8Array(buffer));
+}
+
+
+var battery = {service: "FFE0",level: "2A19",char:"FFE1"};
+	this.bindEvents = function() {
+		refreshDeviceList();
+		refreshButton.addEventListener('touchstart',refreshDeviceList(), false);
+		deviceList.addEventListener('touchstart',connect(), false); // assume not scrolling
+		title.innerHTML  = "bind";
+	}
+	this.bindEvents1 = function() {
+		batteryState.innerHTML = "bind1";
+		disconnectButton.addEventListener('touchstart', this.disconnect, false);
+		//sendButton.addEventListener('touchstart', this.sendData, false);
+		this.disconnect();
+		
+	}
+	
+	this.disconnect = function() {
+		batteryState.innerHTML = "disconnet";
+		ble.disconnect(global_deviceid,app.showMainPage,app.onError);
+	}
+		
+	function refreshDeviceList(){
+		title.innerHTML = 'refreshing'; // empties the list
+		ble.scan([], 5,onDiscoverDevice(), app.onError);
+		
+	}
+		
+	function onDiscoverDevice(device) {
+		title.innerHTML  = "discover";
+		console.log(JSON.stringify(device));
+		var listItem = document.createElement('li'),
+			html = '<b>' + device.name + '</b><br/>' +
+				'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
+				device.id;
+		listItem.dataset.deviceId = device.id;  // TODO
+		listItem.innerHTML = html;
+		deviceList.appendChild(listItem);
+	}
+		
+		function connect(e) {
+			title.innerHTML  = "connect";
+			var deviceId = e.target.dataset.deviceId,
+				onConnect = function() {
+					global_deviceid = deviceId;
+					ble.notify(deviceId,battery.service,battery.char,app.onBatteryLevelChange,app.onError);
+					disconnectButton.dataset.deviceId = deviceId;
+					app.showDetailPage();
+				};
+			ble.connect(deviceId,onConnect,app.onError);
+		}
+		var app = {
+		onBatteryLevelChange: function(data) {
+			// receive code
+			var data1 = "";
+			data1 = bytesToString(data);
+			batteryState.innerHTML = data1;
+			/*var temp = data.charAt(1);
+			var status = data.charAt(2)+""+data.charAt(3);
+			if(temp == "1")localStorage.setItem("D1",status);
+			if(temp == "2")localStorage.setItem("D2",status);
+			if(temp == "3")localStorage.setItem("D3",status);
+			if(temp == "4")localStorage.setItem("D4",status);*/
+		},
+		
+		sendData: function(event) {
+			var data = "";
+			var x = checkbox1.checked;
+			if(x)data = stringToBytes("a21113b\n");
+			else data = stringToBytes("a21013b\n");
+			ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+		},
+		
+		showMainPage: function() {
+		},
+		showDetailPage: function() {
+			//mainPage.hidden = true;
+			//detailPage.hidden = false;
+		},
+		onError: function(reason) {
+		   alert("ERROR: " + reason); // real apps should use notification.alert
+		}
+	};
+
+})
