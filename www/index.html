@@ -1,182 +1,37 @@
-<html ng-app="ionicApp">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>Tabs Example</title>
-	<script src="js/jquery-2.1.1.min.js"></script>
-    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
-    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
-    <script src="js/ng-cordova.min.js"></script>
-    <script src="cordova.js"></script>
-    <script src="js/index.js"></script>
-  </head>
-
-  <body>
-    <ion-nav-bar class="bar-positive">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
-             
-    <ion-nav-view></ion-nav-view>
-
-	<script id="templates/tabs.html" type="text/ng-template">
-	<ion-tabs class="tabs-icon-top tabs-positive">
-		<ion-tab title="Home" icon="ion-home" href="#/tab/home">
-		  <ion-nav-view name="home-tab"></ion-nav-view>
-		</ion-tab>
-		<ion-tab title="Settings" icon="ion-android-settings" href="#/tab/setting">
-		  <ion-nav-view name="setting-tab"></ion-nav-view>
-		</ion-tab>
-		<ion-tab title="About" icon="ion-ios-information" href="#/tab/about">
-		  <ion-nav-view name="about-tab"></ion-nav-view>
-		</ion-tab>
-		<ion-tab title="Contact" icon="ion-ios-world" ui-sref="tabs.contact">
-		  <ion-nav-view name="contact-tab"></ion-nav-view>
-		</ion-tab>
-	</ion-tabs>
-    </script>
-
-    <script id="templates/home.html" type="text/ng-template">
-      <ion-view view-title="Home">
-        <ion-content>
-		<div class="bar bar-header bar-stable">
-  			<h1 class="title">Choose a peripheral</h1>
-			<button id="refreshButton" class="button button-icon icon-right ion-refresh"></button>
-		</div>
-          <div class="app" style="padding-top:65px;">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,  target-densitydpi=device-dpi" />
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>RoboSmart</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>RoboSmart</h1>
             <div id="mainPage">
-            	<div id="jsondevicelist"></div>
-					<ul id="deviceList">
-					</ul>
-				</div>
-			</div>
-			<!--<p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Send Data</a>
-          	</p>-->
-		</ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/facts.html" type="text/ng-template">
-      <ion-view view-title="Facts">
-        <ion-content>
-     	</ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/facts2.html" type="text/ng-template">
-      <ion-view view-title="Also Factual">
-        <ion-content class="padding">
-          <p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
-          <p>1 in every 4 Americans has appeared on T.V.</p>
-          <p>11% of the world is left-handed.</p>
-          <p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
-          <p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
-          <p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and dont die throughout the movie.</p>
-          <p>
-            <a class="button icon ion-home" href="#/tab/home"> Home</a>
-            <a class="button icon ion-chevron-left" href="#/tab/facts"> Scientific Facts</a>
-          </p>
-        </ion-content>
-      </ion-view>
-    </script>
-
-	<script id="templates/setting.html" type="text/ng-template">
-      <ion-view view-title="Settings">
-        <ion-content>
-          <div id="detailPage">
-			<div id="batteryState"></div>
-				<ul class="list">
-
-				  <li class="item item-toggle">
-					 P1
-					 <label class="toggle toggle-balanced" id="sendButton">
-					   <input type="checkbox" id="checkbox1">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				  
-				<li class="item item-toggle">
-					 P2
-					 <label class="toggle toggle-balanced" id="sendButton1">
-					   <input type="checkbox" id="checkbox2">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				  
-				  <li class="item item-toggle">
-					 P3
-					 <label class="toggle toggle-balanced" id="sendButton2">
-					   <input type="checkbox" id="checkbox3">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				  
-				  <li class="item item-toggle">
-					 P4
-					 <label class="toggle toggle-balanced" id="sendButton3">
-					   <input type="checkbox" id="checkbox4">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				
-				</ul>
-				  
-				<button id="disconnectButton" class="button button-full button-assertive">
-				  Disconnect
-				</button>
-				
-			 	
-		</div>
-        </ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/about.html" type="text/ng-template">
-      <ion-view view-title="About">
-        <ion-content class="padding">
-          <h3>Create hybrid mobile apps with the web technologies you love.</h3>
-          <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
-          <p>Built with Sass and optimized for AngularJS.</p>
-          <p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/navstack">Tabs Nav Stack</a>
-          </p>
-        </ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/nav-stack.html" type="text/ng-template">
-      <ion-view view-title="Tab Nav Stack">
-        <ion-content class="padding">
-          <p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
-        </ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/contact.html" type="text/ng-template">
-      <ion-view title="Contact">
-        <ion-content>
-          <div class="list">
-            <div class="item">
-              @IonicFramework
+                <ul id="deviceList">                    
+                </ul>
+                <button id="refreshButton">Refresh</button>
             </div>
-            <div class="item">
-              @DriftyTeam
-            </div>
-          </div>
-        </ion-content>
-      </ion-view>
-    </script>
-
-</body>
-<script src="js/app.js"></script>
-<script src="js/controller.js"></script>
+            <div id="detailPage">
+                <!-- Topcoat Switch would look nicer http://topcoat.io/topcoat/topcoat-mobile-light.html#switch -->
+                <div>
+                    <input type="checkbox" id="lightSwitch" name="lightSwitch" class="switch" />
+                    <label for="lightSwitch">Switch</label>
+                </div>
+                <div class="rangeDiv">
+                    <input type="range" min="0" max="255" value="0" name="dimmer" id="dimmer" class="topcoat-range"/>
+                </div>
+                <button id="disconnectButton">Disconnect</button>
+            </div>            
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
 </html>
