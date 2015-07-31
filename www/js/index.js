@@ -87,7 +87,7 @@ var app = {
     onBatteryLevelChange: function(data) {
         console.log(data);
         var message;
-        var a = bytesToString(data);
+        var a = parseInt(data[0])+","+parseInt(data[1])+","+parseInt(data[2])+","+parseInt(data[3])+","+parseInt(data[4])+","+parseInt(data[5])+","+parseInt(data[6])+","+parseInt(data[7]);
        	batteryState.innerHTML = a;
     },
     disconnect: function(event) {
