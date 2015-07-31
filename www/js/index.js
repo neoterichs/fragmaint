@@ -74,12 +74,13 @@ var app = {
 		// receive code
 		var data = "";
 		data = bytesToString(data);
-		var temp = data.charAt(1);
+		batteryState.innerHTML = data;
+		/*var temp = data.charAt(1);
 		var status = data.charAt(2)+""+data.charAt(3);
 		if(temp == "1")localStorage.setItem("D1",status);
 		if(temp == "2")localStorage.setItem("D2",status);
 		if(temp == "3")localStorage.setItem("D3",status);
-		if(temp == "4")localStorage.setItem("D4",status);
+		if(temp == "4")localStorage.setItem("D4",status);*/
     },
     disconnect: function(event) {
 		ble.disconnect(global_deviceid,app.showMainPage,app.onError);
