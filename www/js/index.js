@@ -73,7 +73,7 @@ var app = {
         ble.disconnect(deviceId, app.showMainPage, app.onError);
     },
 	sendData: function(event) {
-		var data = stringToBytes("21113\n");
+		var data = stringToBytes("21113\r\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
