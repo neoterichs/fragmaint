@@ -11,10 +11,12 @@ function stringToBytes(string) {
 	}
 	return array.buffer;
 }
+
 //ascii to string
 function bytesToString(buffer) {
 		return String.fromCharCode.apply(null, new Uint8Array(buffer));
 }
+
 
 var battery = {service: "FFE0",level: "2A19",char:"FFE1"};
 
@@ -69,44 +71,45 @@ var app = {
 		ble.connect(deviceId,onConnect,app.onError);
 	},
     onBatteryLevelChange: function(data) {
-        console.log(data);
-        var message;
-        var a = parseInt(data[0])+","+parseInt(data[1])+","+parseInt(data[2])+","+parseInt(data[3])+","+parseInt(data[4])+","+parseInt(data[5])+","+parseInt(data[6])+","+parseInt(data[7]);
-       	batteryState.innerHTML = a;
+		// receive code
+		var data = "";
+		data = bytesToString(data);
+		var temp = data.charAt(1);
+		var status = data.charAt(2)+""+data.charAt(3);
+		if(temp == "1")localStorage.setItem("D1",status);
+		if(temp == "2")localStorage.setItem("D2",status);
+		if(temp == "3")localStorage.setItem("D3",status);
+		if(temp == "4")localStorage.setItem("D4",status);
     },
     disconnect: function(event) {
 		ble.disconnect(global_deviceid,app.showMainPage,app.onError);
     },
 	sendData: function(event) {
-		//deviceList.innerHTML = "sending";
 		var data = "";
 		var x = checkbox1.checked;
-		//0x02	0x01	0x00	0x01	0x03	0x0D	0x0A
-		//if(x)data = Bytesarray("0x02,0x01,0x01,0x01,0x03,0x0D,0x0A");
-		//else data = Bytesarray("0x02,0x01,0x00,0x01,0x03,0x0D,0x0A");
-		if(x)data = stringToBytes("0x02,0x02,0x01,0x01,0x03,0x0D,0x0A");
-		else data = stringToBytes("0x02,0x02,0x00,0x01,0x03,0x0D,0x0A");
+		if(x)data = stringToBytes("21113\n");
+		else data = stringToBytes("21013\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData1: function(event) {
 		var data = "";
 		var x = checkbox2.checked;
-		if(x)data = stringToBytes("0x020x020x010x010x030x0D0x0A");
-		else data = stringToBytes("0x020x020x000x010x030x0D0x0A");
+		if(x)data = stringToBytes("22113\n");
+		else data = stringToBytes("22013\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
 		var data = "";
 		var x = checkbox3.checked;
-		if(x)data = stringToBytes("P31\n");
-		else data = stringToBytes("P30\n");
+		if(x)data = stringToBytes("23113\n");
+		else data = stringToBytes("23013\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData3: function(event) {
 		var data = "";
 		var x = checkbox4.checked;
-		if(x)data = stringToBytes("P41\n");
-		else data = stringToBytes("P40\n");
+		if(x)data = stringToBytes("24113\n");
+		else data = stringToBytes("24013\n");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
