@@ -1,11 +1,11 @@
 // JavaScript Document
 angular.module('starter.controllers', [])
 
-.controller('HomeTabCtrl', function($scope) {
+.controller('HomeTabCtrl', function($scope,ble) {
 	console.log('HomeTabCtrl');
-	app.initialize();
+	ble.bindEvents();
 })
 
-.controller('settingCTRL', function($scope) {
-	
+.controller('settingCTRL', function($scope,ble) {
+	ble.bindEvents1();
 });
