@@ -27,13 +27,12 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
-        batteryStateButton.addEventListener('touchstart', this.readBatteryState, false);
         disconnectButton.addEventListener('touchstart', this.disconnect, false);
         deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
-		sendButton.addEventListener('touchstart', this.sendData, false);
 		sendButton1.addEventListener('touchstart', this.sendData1, false);
 		sendButton2.addEventListener('touchstart', this.sendData2, false);
-		readButton.addEventListener('touchstart', this.readBatteryState, false);
+		sendButton3.addEventListener('touchstart', this.sendData3, false);
+		sendButton4.addEventListener('touchstart', this.sendData4, false);
 	},
     onDeviceReady: function() {
         app.refreshDeviceList();
@@ -75,16 +74,20 @@ var app = {
         var deviceId = event.target.dataset.deviceId;
         ble.disconnect(deviceId, app.showMainPage, app.onError);
     },
-	sendData: function(event) {
+	sendData1: function(event) {
 		var data = stringToBytes("21013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
-	sendData1: function(event) {
+	sendData2: function(event) {
 		var data = stringToBytes("22013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
-	sendData2: function(event) {
+	sendData3: function(event) {
 		var data = stringToBytes("23013DA");
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+	},
+	sendData4: function(event) {
+		var data = stringToBytes("24013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
