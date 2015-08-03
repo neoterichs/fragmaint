@@ -13,4 +13,8 @@ angular.module('starter.controllers', [])
 
 .controller('settingCTRL', function($scope) {
 	
+})
+
+.controller('scheduleCTRL', function($scope) {
+	
 });

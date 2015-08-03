@@ -41,6 +41,15 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
         }
       }
     })
+	.state('tabs.schedule', {
+      url: "/schedule",
+      views: {
+        'setting-tab' :{
+          templateUrl: "templates/schedule.html",
+		  controller: 'scheduleCTRL'
+		}
+      }
+    })
     .state('tabs.about', {
       url: "/about",
       views: {

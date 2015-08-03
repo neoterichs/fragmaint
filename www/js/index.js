@@ -116,8 +116,8 @@ var app = {
     showDetailPage: function() {
         mainPage.hidden = true;
         detailPage.hidden = false;
-		bletitle.innerHTML = "ON/OFF Status"
-		disconnectButton.innerHTML = "Disconnect from"+global_name;
+		bletitle.innerHTML = "Device Control"
+		disconnectButton.innerHTML = "Disconnect from "+global_name;
     },
 	onError: function(reason) {
        // alert("ERROR: " + reason); // real apps should use notification.alert
