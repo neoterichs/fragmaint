@@ -85,25 +85,28 @@ var app = {
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage1,app.onError);
 	},
 	sendData2: function(event) {
-		var data1 = ""; 
-		var x = checkbox1.checked;
-		if(x)data = stringToBytes("22113DA");
-		else data = stringToBytes("22013DA");
-		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage1,app.onError);
+		var data1 = "";
+		var intensity1 = range2.value;
+		var x = checkbox2.checked;
+		if(x)data1 = stringToBytes("221"+intensity1+"3DA");
+		else data1 = stringToBytes("220"+intensity1+"3DA");
+		ble.write(global_deviceid,battery.service,battery.char,data1,app.showDetailPage1,app.onError);
 	},
 	sendData3: function(event) {
 		var data2 = ""; 
-		var x = checkbox1.checked;
-		if(x)data = stringToBytes("23113DA");
-		else data = stringToBytes("23013DA");
-		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage1,app.onError);
+		var intensity2 = range3.value;
+		var x = checkbox3.checked;
+		if(x)data2 = stringToBytes("231"+intensity2+"3DA");
+		else data2 = stringToBytes("230"+intensity2+"3DA");
+		ble.write(global_deviceid,battery.service,battery.char,data2,app.showDetailPage1,app.onError);
 	},
 	sendData4: function(event) {
 		var data3 = ""; 
-		var x = checkbox1.checked;
-		if(x)data = stringToBytes("24113DA");
-		else data = stringToBytes("24013DA");
-		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage1,app.onError);
+		var intensity3 = range4.value;
+		var x = checkbox4.checked;
+		if(x)data3 = stringToBytes("241"+intensity3+"3DA");
+		else data3 = stringToBytes("240"+intensity3+"3DA");
+		ble.write(global_deviceid,battery.service,battery.char,data3,app.showDetailPage1,app.onError);
 	},
     showMainPage: function() {
         mainPage.hidden = false;
