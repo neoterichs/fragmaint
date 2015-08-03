@@ -57,13 +57,13 @@ var app = {
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
-				ble.notify(deviceId,battery.service,battery.char,app.onBatteryLevelChange,app.onError);
+				ble.notify(deviceId,battery.service,battery.char,app.onreceiveData,app.onError);
 				disconnectButton.dataset.deviceId = deviceId;
                 app.showDetailPage();
 			};
 		ble.connect(deviceId,onConnect,app.onError);
 	},
-    onBatteryLevelChange: function(data) {
+    onreceiveData: function(data) {
         console.log(data);
         var message;
         var a = bytesToString(data);
@@ -74,28 +74,42 @@ var app = {
         ble.disconnect(deviceId, app.showMainPage, app.onError);
     },
 	sendData1: function(event) {
-		var data = stringToBytes("21013DA");
+		var data = ""; 
+		var x = checkbox1.checked;
+		if(x)data = stringToBytes("21113DA");
+		else data = stringToBytes("21013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
-		var data = stringToBytes("22013DA");
+		var data1 = ""; 
+		var x = checkbox1.checked;
+		if(x)data = stringToBytes("22113DA");
+		else data = stringToBytes("22013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData3: function(event) {
-		var data = stringToBytes("23013DA");
+		var data2 = ""; 
+		var x = checkbox1.checked;
+		if(x)data = stringToBytes("23113DA");
+		else data = stringToBytes("23013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData4: function(event) {
-		var data = stringToBytes("24013DA");
+		var data3 = ""; 
+		var x = checkbox1.checked;
+		if(x)data = stringToBytes("24113DA");
+		else data = stringToBytes("24013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
         mainPage.hidden = false;
         detailPage.hidden = true;
+		bletitle.innerHTML = "Choose a peripheral"
     },
     showDetailPage: function() {
         mainPage.hidden = true;
         detailPage.hidden = false;
+		bletitle.innerHTML = "ON/OFF Status"
     },
 	onError: function(reason) {
        // alert("ERROR: " + reason); // real apps should use notification.alert
