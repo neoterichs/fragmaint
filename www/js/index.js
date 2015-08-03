@@ -33,6 +33,8 @@ var app = {
 		sendButton2.addEventListener('touchstart', this.sendData2, false);
 		sendButton3.addEventListener('touchstart', this.sendData3, false);
 		sendButton4.addEventListener('touchstart', this.sendData4, false);
+		
+		range1.addEventListener('touchstart', this.sendData1, false);
 	},
     onDeviceReady: function() {
         app.refreshDeviceList();
@@ -75,9 +77,10 @@ var app = {
     },
 	sendData1: function(event) {
 		var data = ""; 
+		var intensity = range1.value;
 		var x = checkbox1.checked;
-		if(x)data = stringToBytes("21113DA");
-		else data = stringToBytes("21013DA");
+		if(x)data = stringToBytes("211"+intensity+"3DA");
+		else data = stringToBytes("210"+intensity+"3DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
