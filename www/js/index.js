@@ -31,6 +31,8 @@ var app = {
         disconnectButton.addEventListener('touchstart', this.disconnect, false);
         deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
 		sendButton.addEventListener('touchstart', this.sendData, false);
+		sendButton1.addEventListener('touchstart', this.sendData1, false);
+		sendButton2.addEventListener('touchstart', this.sendData2, false);
 		readButton.addEventListener('touchstart', this.readBatteryState, false);
 	},
     onDeviceReady: function() {
@@ -74,7 +76,15 @@ var app = {
         ble.disconnect(deviceId, app.showMainPage, app.onError);
     },
 	sendData: function(event) {
-		var data = stringToBytes("hello");
+		var data = stringToBytes("21013DA");
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+	},
+	sendData1: function(event) {
+		var data = stringToBytes("22013DA");
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
+	},
+	sendData2: function(event) {
+		var data = stringToBytes("23013DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
