@@ -58,8 +58,7 @@ var app = {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
 				ble.notify(deviceId,battery.service,battery.char,app.onBatteryLevelChange,app.onError);
-				batteryStateButton.dataset.deviceId = deviceId;
-                disconnectButton.dataset.deviceId = deviceId;
+				disconnectButton.dataset.deviceId = deviceId;
                 app.showDetailPage();
 			};
 		ble.connect(deviceId,onConnect,app.onError);
