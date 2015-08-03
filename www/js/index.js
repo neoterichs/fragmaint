@@ -79,6 +79,7 @@ var app = {
 		var data = ""; 
 		var intensity = range1.value;
 		var x = checkbox1.checked;
+		bletitle.innerHTML = intensity;
 		if(x)data = stringToBytes("211"+intensity+"3DA");
 		else data = stringToBytes("210"+intensity+"3DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
