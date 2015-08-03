@@ -2,7 +2,7 @@
 
 //global uuid id
 var global_deviceid = "";
-
+var global_name = "";
 //string to ascii
 function stringToBytes(string) {
    var array = new Uint8Array(string.length);
@@ -55,6 +55,7 @@ var app = {
         listItem.innerHTML = html;
         deviceList.appendChild(listItem);
 		global_deviceid = device.id;
+		global_name = device.name;
     },
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
@@ -79,10 +80,9 @@ var app = {
 		var data = ""; 
 		var intensity = range1.value;
 		var x = checkbox1.checked;
-		bletitle.innerHTML = intensity;
 		if(x)data = stringToBytes("210"+intensity+"3DA");
 		else data = stringToBytes("211"+intensity+"3DA");
-		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage1,app.onError);
+		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
 	sendData2: function(event) {
 		var data1 = "";
@@ -90,7 +90,7 @@ var app = {
 		var x = checkbox2.checked;
 		if(x)data1 = stringToBytes("220"+intensity1+"3DA");
 		else data1 = stringToBytes("221"+intensity1+"3DA");
-		ble.write(global_deviceid,battery.service,battery.char,data1,app.showDetailPage1,app.onError);
+		ble.write(global_deviceid,battery.service,battery.char,data1,app.showDetailPage,app.onError);
 	},
 	sendData3: function(event) {
 		var data2 = ""; 
@@ -98,7 +98,7 @@ var app = {
 		var x = checkbox3.checked;
 		if(x)data2 = stringToBytes("230"+intensity2+"3DA");
 		else data2 = stringToBytes("231"+intensity2+"3DA");
-		ble.write(global_deviceid,battery.service,battery.char,data2,app.showDetailPage1,app.onError);
+		ble.write(global_deviceid,battery.service,battery.char,data2,app.showDetailPage,app.onError);
 	},
 	sendData4: function(event) {
 		var data3 = ""; 
@@ -106,7 +106,7 @@ var app = {
 		var x = checkbox4.checked;
 		if(x)data3 = stringToBytes("240"+intensity3+"3DA");
 		else data3 = stringToBytes("241"+intensity3+"3DA");
-		ble.write(global_deviceid,battery.service,battery.char,data3,app.showDetailPage1,app.onError);
+		ble.write(global_deviceid,battery.service,battery.char,data3,app.showDetailPage,app.onError);
 	},
     showMainPage: function() {
         mainPage.hidden = false;
@@ -117,8 +117,7 @@ var app = {
         mainPage.hidden = true;
         detailPage.hidden = false;
 		bletitle.innerHTML = "ON/OFF Status"
-    },
-	showDetailPage1: function() {
+		disconnectButton.innerHTML = "Disconnect from"+global_name;
     },
 	onError: function(reason) {
        // alert("ERROR: " + reason); // real apps should use notification.alert
