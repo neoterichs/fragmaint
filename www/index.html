@@ -8,7 +8,7 @@
     <script src="lib/ionic/js/ionic.bundle.min.js"></script>
     <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
-    
+    <script src="js/index.js"></script>
   </head>
 
   <body>
@@ -39,20 +39,22 @@
     <script id="templates/home.html" type="text/ng-template">
       <ion-view view-title="Home">
         <ion-content>
-		<div class="bar bar-header bar-stable">
-  			<h1 class="title" id="title">Choose a peripheral</h1>
-			<button id="refreshButton" class="button button-icon icon-right ion-refresh"></button>
-		</div>
-          <div class="app" style="padding-top:65px;">
+		<div class="app">
+            <p style="text-align:center; padding-top: 20px;">Choose a peripheral with a battery service</p>
             <div id="mainPage">
             	<div id="jsondevicelist"></div>
-					<ul id="deviceList">
-					</ul>
-				</div>
-			</div>
-			<!--<p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Send Data</a>
-          	</p>-->
+                <ul id="deviceList">
+                </ul>
+                <button id="refreshButton">Refresh</button>
+            </div>
+            <div id="detailPage">
+                <div id="batteryState"></div>
+                 <button id="sendButton">Send data</button>
+                 <button id="readButton">Read data</button>
+                <button id="batteryStateButton">Read Battery State</button>
+                <button id="disconnectButton">Disconnect</button>
+            </div>
+        </div>
 		</ion-content>
       </ion-view>
     </script>
@@ -84,58 +86,7 @@
 	<script id="templates/setting.html" type="text/ng-template">
       <ion-view view-title="Settings">
         <ion-content>
-          <div id="detailPage">
-			<div id="batteryState">scaning</div>
-				<ul class="list">
-
-				  <li class="item item-toggle">
-					 P1
-					 <label class="toggle toggle-balanced" id="sendButton">
-					   <input type="checkbox" id="checkbox1">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				  
-				<li class="item item-toggle">
-					 P2
-					 <label class="toggle toggle-balanced" id="sendButton1">
-					   <input type="checkbox" id="checkbox2">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				  
-				  <li class="item item-toggle">
-					 P3
-					 <label class="toggle toggle-balanced" id="sendButton2">
-					   <input type="checkbox" id="checkbox3">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				  
-				  <li class="item item-toggle">
-					 P4
-					 <label class="toggle toggle-balanced" id="sendButton3">
-					   <input type="checkbox" id="checkbox4">
-					   <div class="track">
-						 <div class="handle"></div>
-					   </div>
-					 </label>
-				  </li>
-				
-				</ul>
-				  
-				<button id="disconnectButton" class="button button-full button-assertive">
-				  Disconnect
-				</button>
-				
-			 	
-		</div>
+          
         </ion-content>
       </ion-view>
     </script>
