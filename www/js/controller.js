@@ -19,6 +19,7 @@ angular.module('starter.controllers', [])
 		db.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS schedule_table (id integer primary key, schedulename text)');
 			tx.executeSql('INSERT INTO schedule_table (schedulename) VALUES ("Schedule_1")');
+			alert("inserting"); 
 		});
 	}
 })
