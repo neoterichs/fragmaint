@@ -150,16 +150,16 @@
 		  <h1 class="title">Add Schedule</h1>
 		</div>
 		<div class="row  bar bar-subheader">
-		<div class="col-75" >
-			<label class="item-input">
-			<input type="text" placeholder="Schedule Name">
-			</label>
-  		</div>
-		<div>
-			<button class="button button-small button-positive button-clear" >
-  				ADD
-			</button>
-  		</div>
+			<div class="col-75" >
+				<label class="item-input">
+				<input type="text" placeholder="Schedule Name">
+				</label>
+			</div>
+			<div>
+				<button class="button button-small button-positive button-clear" >
+					ADD
+				</button>
+			</div>
 		</div>
 		
         </ion-content>
@@ -218,7 +218,7 @@ function onDeviceReady() {
      tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
       alert("inserting"); 
       db.transaction(function(tx) {
-        tx.executeSql("select * as cnt from test_table;", [], function(tx, res) {
+        tx.executeSql("select * from test_table;", [], function(tx, res) {
           alert("record"+res.rows.item(0).data);       
          });
       });
