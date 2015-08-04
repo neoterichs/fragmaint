@@ -35,6 +35,7 @@ angular.module('starter.controllers', [])
 	function querySuccess(tx,result){
 		$.each(result.rows,function(index){
 			var row = result.rows.item(index);
+			alert(row['schedulename']);
 			$('#elist').append('<a class="item">'+row['schedulename']+'</a>');
 		});
 	}
