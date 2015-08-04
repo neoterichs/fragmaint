@@ -150,24 +150,18 @@
 		  <h1 class="title">Add Schedule</h1>
 		</div>
 		<div class="row  bar bar-subheader">
-			<div class="col-75" >
-				<label class="item-input">
-				<input type="text" placeholder="Schedule Name">
-				</label>
-			</div>
-			<div>
-				<button class="button button-small button-positive button-clear" >
-					ADD
-				</button>
-			</div>
+		<div class="col-75" >
+			<label class="item-input">
+			<input type="text" placeholder="Schedule Name">
+			</label>
+  		</div>
+		<div>
+			<button class="button button-small button-positive button-clear" >
+  				ADD
+			</button>
+  		</div>
 		</div>
 		
-		<div class="list" id="elist"  style="padding-top:85px;">
-			<div class="item item-divider" style="font-size:18px;">
-				Schedule List
-			</div>
-			
-		</div>
         </ion-content>
       </ion-view>
     </script>
@@ -212,6 +206,27 @@
 <script src="js/app.js"></script>
 <script src="js/controller.js"></script>
 <script>
+document.addEventListener("deviceready", onDeviceReady, false);
+var db;
+function onDeviceReady() {	
+	//Please place your db file in wwww directory ,here example : projectpath/www/santosh.db
+    db = window.sqlitePlugin.openDatabase({name: "fragmaint.db", createFromLocation: 1});
+	alert("conncting"); 
+  	db.transaction(function(tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
 
+     tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
+      alert("inserting"); 
+      db.transaction(function(tx) {
+        tx.executeSql("select * as cnt from test_table;", [], function(tx, res) {
+          alert("record"+res.rows.item(0).data);       
+         });
+      });
+
+     }, function(e) {
+      alert(e.message);
+    });
+  });
+}
 </script>
 </html>
