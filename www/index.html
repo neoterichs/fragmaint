@@ -205,4 +205,16 @@
 </body>
 <script src="js/app.js"></script>
 <script src="js/controller.js"></script>
+<script>
+document.addEventListener("deviceready", onDeviceReady, false);
+var db;
+function onDeviceReady() {	
+	//Please place your db file in wwww directory ,here example : projectpath/www/santosh.db
+    db = window.sqlitePlugin.openDatabase({name: "fragmaint.db", createFromLocation: 1});
+	db.transaction(function(tx) {
+   		tx.executeSql('DROP TABLE IF EXISTS test_table');
+   		tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
+	});
+}
+</script>
 </html>
