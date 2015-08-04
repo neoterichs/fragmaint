@@ -64,7 +64,7 @@
 							<input id="range1" type="range" name="volume" min="1" max="5" step="1"  ng-model="data.pickup1" value="{{data.pickup1}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
-						<div class="range range-calm">
+						<div class="range range-calm" id="range11">
 							{{data.pickup1}}
         				</div>
 						<li class="item item-toggle">
@@ -81,6 +81,9 @@
 							<input id="range2" type="range" name="volume" min="1" max="5" step="1"  ng-model="data.pickup2" value="{{data.pickup2}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
+						<div class="range range-calm" id="range21">
+							{{data.pickup2}}
+        				</div>
 						<li class="item item-toggle">
 						 P3
 						 <label class="toggle toggle-balanced" id="sendButton3">
@@ -109,8 +112,6 @@
 							<input id="range4" type="range" name="volume" min="1" max="5" step="1"  ng-model="data.pickup4" value="{{data.pickup4}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
-						
-						
 					</ul>
 				<button id="disconnectButton" class="button button-full button-assertive"></button>
             </div>
@@ -211,15 +212,15 @@ var db;
 function onDeviceReady() {	
 	//Please place your db file in wwww directory ,here example : projectpath/www/santosh.db
     db = window.sqlitePlugin.openDatabase({name: "fragmaint.db", createFromLocation: 1});
-	alert("conncting"); 
+	//alert("conncting"); 
   	db.transaction(function(tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
 
      tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-      alert("inserting"); 
+      //alert("inserting"); 
       db.transaction(function(tx) {
         tx.executeSql("select * from test_table;", [], function(tx, res) {
-          alert("record"+res.rows.item(0).data);       
+          //alert("record"+res.rows.item(0).data);       
          });
       });
 
