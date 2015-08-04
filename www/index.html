@@ -50,10 +50,11 @@
             <div id="detailPage">
                 <div id="batteryState"></div>
 					<ul class="list">
+						// p1 code
 						<li class="item item-toggle">
 						 P1
 						 <label class="toggle toggle-balanced" id="sendButton1">
-						   <input type="checkbox" id="checkbox1">
+						   <input type="checkbox" id="checkbox1" ng-model="data.status1" ng-click="changestatus('1',{{data.status1}},{{data.pickup1}})">
 						   <div class="track">
 							 <div class="handle"></div>
 						   </div>
@@ -61,16 +62,14 @@
 						</li>
 						<div class="range range-calm">
 							<i class="icon ion-ios-bolt-outline"></i>
-							<input id="range1" type="range" name="volume" min="1" max="5" step="1"  ng-model="data.pickup1" value="{{data.pickup1}}">
+							<input id="range1" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('1',{{data.status1}},{{data.pickup1}})" ng-model="data.pickup1">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
-						<div id="range11">
-							{{data.pickup1}}
-        				</div>
+						// p2 code
 						<li class="item item-toggle">
 						 P2
 						 <label class="toggle toggle-balanced" id="sendButton2">
-						   <input type="checkbox" id="checkbox2">
+						   <input type="checkbox" id="checkbox2" ng-model="data.status2">
 						   <div class="track">
 							 <div class="handle"></div>
 						   </div>
@@ -84,10 +83,11 @@
 						<div  id="range21">
 							
         				</div>
+						// p3 code
 						<li class="item item-toggle">
 						 P3
 						 <label class="toggle toggle-balanced" id="sendButton3">
-						   <input type="checkbox" id="checkbox3">
+						   <input type="checkbox" id="checkbox3" ng-model="data.status3">
 						   <div class="track">
 							 <div class="handle"></div>
 						   </div>
@@ -98,10 +98,11 @@
 							<input id="range3" type="range" name="volume" min="1" max="5" step="1"  ng-model="data.pickup3" value="{{data.pickup3}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
+						// p4 code
 						<li class="item item-toggle">
 						 P4
 						 <label class="toggle toggle-balanced" id="sendButton4">
-						   <input type="checkbox" id="checkbox4">
+						   <input type="checkbox" id="checkbox4" ng-model="data.status4">
 						   <div class="track">
 							 <div class="handle"></div>
 						   </div>
