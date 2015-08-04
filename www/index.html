@@ -54,7 +54,7 @@
 						<li class="item item-toggle">
 						 P1
 						 <label class="toggle toggle-balanced" id="sendButton1">
-						   <input type="checkbox" id="checkbox1" ng-model="data.status1" ng-click="changestatus('1',{{data.status1}},{{data.pickup1}})">
+						   <input type="checkbox" id="checkbox1" ng-model="data.status1" ng-click="changestatus('1',data.status1,data.pickup1)">
 						   <div class="track">
 							 <div class="handle"></div>
 						   </div>
@@ -62,7 +62,7 @@
 						</li>
 						<div class="range range-calm">
 							<i class="icon ion-ios-bolt-outline"></i>
-							<input id="range1" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('1',{{data.status1}},{{data.pickup1}})" ng-model="data.pickup1">
+							<input id="range1" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('1',data.status1,data.pickup1)" ng-model="data.pickup1">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
 						// p2 code

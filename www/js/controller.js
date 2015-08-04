@@ -18,10 +18,9 @@ angular.module('starter.controllers', [])
 	$scope.data.status4 = false;
 	
 	$scope.changestatus = function(device,status,intensity){
-
+		alert(device+" "+status+ +intensity)
 		app.sendData(device,status,intensity);
 	};
-	
 })
 
 .controller('settingCTRL', function($scope) {
