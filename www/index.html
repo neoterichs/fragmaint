@@ -62,7 +62,7 @@
 						</li>
 						<div class="range range-calm">
 							<i class="icon ion-ios-bolt-outline"></i>
-							<input id="range1" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('1',data.status1,data.pickup1)" ng-model="data.pickup1">
+							<input id="range1" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('1',data.status1,data.pickup1)" ng-model="data.pickup1">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
 						
@@ -77,7 +77,7 @@
 					  	</li>
 						<div class="range range-calm">
 							<i class="icon ion-ios-bolt-outline"></i>
-							<input id="range2" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('2',data.status2,data.pickup2)"  ng-model="data.pickup2" value="{{data.pickup2}}">
+							<input id="range2" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('2',data.status2,data.pickup2)"  ng-model="data.pickup2" value="{{data.pickup2}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
 						<div  id="range21">
@@ -95,7 +95,7 @@
 					  	</li>
 						<div class="range range-calm">
 							<i class="icon ion-ios-bolt-outline"></i>
-							<input id="range3" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('3',data.status3,data.pickup3)"  ng-model="data.pickup3" value="{{data.pickup3}}">
+							<input id="range3" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('3',data.status3,data.pickup3)"  ng-model="data.pickup3" value="{{data.pickup3}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
 						
@@ -110,7 +110,7 @@
 					  	</li>
 						<div class="range range-calm">
 							<i class="icon ion-ios-bolt-outline"></i>
-							<input id="range4" type="range" name="volume" min="1" max="5" step="1" ng-click="changestatus('4',data.status4,data.pickup4)"  ng-model="data.pickup4" value="{{data.pickup4}}">
+							<input id="range4" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('4',data.status4,data.pickup4)"  ng-model="data.pickup4" value="{{data.pickup4}}">
 							<i class="icon ion-ios-bolt"></i>
 						</div>
 					</ul>
