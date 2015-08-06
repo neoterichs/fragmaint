@@ -9,10 +9,10 @@ angular.module('starter.controllers', [])
 	
 	//initialize values
 	$scope.data = {};
-	$scope.data.pickup1 = 0;
+	$scope.data.pickup1 = 1;
 	$scope.data.pickup2 = 1;
-	$scope.data.pickup3 = 2;
-	$scope.data.pickup4 = 3;
+	$scope.data.pickup3 = 1;
+	$scope.data.pickup4 = 1;
 	$scope.data.status1 = false;
 	$scope.data.status2 = false;
 	$scope.data.status3 = false;
