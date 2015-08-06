@@ -5,14 +5,18 @@
     <title>Tabs Example</title>
 	<script src="js/jquery-2.1.1.min.js"></script>
     <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="lib/ionic-timepicker/dist/style.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/templates.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.js"></script>
     <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
     <script src="js/index.js"></script>
   </head>
 
   <body>
-    <ion-nav-bar class="bar-positive">
+    <ion-nav-bar class="header-bar">
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>
@@ -20,7 +24,7 @@
     <ion-nav-view></ion-nav-view>
 
 	<script id="templates/tabs.html" type="text/ng-template">
-	<ion-tabs class="tabs-icon-top tabs-positive">
+	<ion-tabs class="tabs-icon-top">
 		<ion-tab title="Home" icon="ion-home" href="#/tab/home">
 		  <ion-nav-view name="home-tab"></ion-nav-view>
 		</ion-tab>
@@ -42,7 +46,7 @@
 		<div class="app">
             <p id="bletitle" style="text-align:center; padding-top: 20px;">Choose a peripheral</p>
             <div id="mainPage">
-				<button id="refreshButton" class="button button-full button-balanced">Refresh List</button>
+				<button id="refreshButton" class="button button-full" style="background-color:#0898A1; color:#fff;">Refresh List</button>
             	<div id="jsondevicelist"></div>
                 <ul id="deviceList">
                 </ul>
@@ -154,18 +158,81 @@
 		<div class="row  bar bar-subheader">
 			<div class="col-75" >
 				<label class="item-input">
-				<input type="text" placeholder="Schedule Name">
+				<input type="text" placeholder="Schedule Name" ng-model="data.schedulename">
 				</label>
 			</div>
 			<div>
-				<button class="button button-small button-positive button-clear" >
+				<button class="button button-small button-clear" style="font-weight:600; color:#0898A1;" ng-click="saveschedule(data.schedulename)">
 					ADD
 				</button>
 			</div>
 		</div>
-		
+		<div class="list" style="padding-top:88px;">
+			<div class="item item-divider" style="border-top:20px solid #078189">
+				<center style="font-weight: 500; font-size:17px; ">Schedule List</center>
+			</div>
+			
+			<a class="item item-icon-right" ui-sref="tabs.scheduledetail({schedulename:data.sname})" ng-repeat="data in response track by $index">
+				{{data.sname}}
+				<i class="icon ion-ios-arrow-right icon-right"></i>
+			</a>
+		</div>
         </ion-content>
       </ion-view>
+    </script>
+    
+    <script id="templates/scheduledetail.html" type="text/ng-template">
+      <ion-view view-title="Details">
+	  <ion-nav-buttons side="right">
+			<button class="button button-block login-button button-clear" style="color:#fff; margin:0px;" ng-click="scheduledetailmodal.show()" style="margin-top:-0px;">
+				Add Details
+			</button>
+		</ion-nav-buttons>
+        <ion-content class="padding">
+          
+        </ion-content>
+      </ion-view>
+    </script>
+    
+    <script id="tabs/scheduledetailmodal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header header-bar">
+          <h1 class="title" style="color:#fff;">Add Detail</h1>
+          <button class="button button-clear button-primary" ng-click="scheduledetailmodal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+      <div class="item">
+        <p><strong>12-Hour Format</strong></p>
+
+        <p class="overflowShow">Epoch time is : <strong class="assertive">{{slots[0].epochTime}}</strong> seconds.</p>
+
+        <p class="overflowShow"><strong>{{slots[0].step}}</strong> minute increment.</p>
+
+        <ionic-timepicker etime="slots[0].epochTime" format="slots[0].format" step="slots[0].step" callback="timePickerCallback">
+          <button class="button button-block button-positive overflowShow">
+            <standard-time-meridian etime='slots[0].epochTime'></standard-time-meridian>
+          </button>
+        </ionic-timepicker>
+
+      </div>
+      <div class="item">
+        <p><strong>24-Hour Format</strong></p>
+
+        <p class="overflowShow">Epoch time is : <strong class="assertive">{{slots[1].epochTime}}</strong> seconds.</p>
+
+        <p class="overflowShow"><strong>{{slots[1].step}}</strong> minute increment.</p>
+
+        <ionic-timepicker etime="slots[1].epochTime" format="slots[1].format" step="slots[1].step" callback="timePickerCallback">
+          <button class="button button-block button-positive overflowShow">
+            <standard-time-no-meridian etime='slots[1].epochTime'></standard-time-no-meridian>
+          </button>
+        </ionic-timepicker>
+
+      </div>
+    </div>
+        </ion-content>
+      </ion-modal-view>
     </script>
 
     <script id="templates/about.html" type="text/ng-template">
@@ -207,5 +274,4 @@
 </body>
 <script src="js/app.js"></script>
 <script src="js/controller.js"></script>
-
 </html>

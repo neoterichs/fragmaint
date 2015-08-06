@@ -72,7 +72,6 @@ var app = {
     },
 	sendData: function(device,status,intensity) {
 		var data = ""; 
-		range21.innerHTML = status;
 		if(status)data = stringToBytes("2"+device+"1"+intensity+"3DA");
 		else data = stringToBytes("2"+device+"0"+intensity+"3DA");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);

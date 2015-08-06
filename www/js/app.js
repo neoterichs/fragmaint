@@ -1,4 +1,4 @@
-angular.module('ionicApp', ['ionic','starter.controllers'])
+angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
@@ -50,6 +50,15 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
 		}
       }
     })
+	.state('tabs.scheduledetail', {
+		url: "/scheduledetail/:schedulename",
+		views: {
+		  'setting-tab': {
+			templateUrl: "templates/scheduledetail.html",
+			controller: 'scheduleCTRL'
+		  }
+		}
+	  })
     .state('tabs.about', {
       url: "/about",
       views: {
@@ -78,5 +87,106 @@ angular.module('ionicApp', ['ionic','starter.controllers'])
 
 	$urlRouterProvider.otherwise("/tab/home");
 
+})
+
+.directive('standardTimeMeridian', function () {
+	return {
+		restrict: 'AE',
+		replace: true,
+		scope: {
+			etime: '=etime'
+		},
+		template: "<strong>{{stime}}</strong>",
+		link: function (scope, elem, attrs) {
+
+			scope.stime = epochParser(scope.etime, 'time');
+
+			function prependZero(param) {
+				if (String(param).length < 2) {
+					return "0" + String(param);
+				}
+				return param;
+			}
+
+			function epochParser(val, opType) {
+				if (val === null) {
+					return "00:00";
+				} else {
+					var meridian = ['AM', 'PM'];
+
+					if (opType === 'time') {
+						var hours = parseInt(val / 3600);
+						var minutes = (val / 60) % 60;
+						var hoursRes = hours > 12 ? (hours - 12) : hours;
+
+						var currentMeridian = meridian[parseInt(hours / 12)];
+
+						return (prependZero(hoursRes) + ":" + prependZero(minutes) + " " + currentMeridian);
+					}
+				}
+			}
+
+			scope.$watch('etime', function (newValue, oldValue) {
+				scope.stime = epochParser(scope.etime, 'time');
+			});
+
+		}
+	};
+})
+
+.directive('standardTimeNoMeridian', function () {
+	return {
+		restrict: 'AE',
+		replace: true,
+		scope: {
+			etime: '=etime'
+		},
+		template: "<strong>{{stime}}</strong>",
+		link: function (scope, elem, attrs) {
+
+			scope.stime = epochParser(scope.etime, 'time');
+
+			function prependZero(param) {
+				if (String(param).length < 2) {
+					return "0" + String(param);
+				}
+				return param;
+			}
+
+			function epochParser(val, opType) {
+				if (val === null) {
+					return "00:00";
+				} else {
+					if (opType === 'time') {
+						var hours = parseInt(val / 3600);
+						var minutes = (val / 60) % 60;
+
+						return (prependZero(hours) + ":" + prependZero(minutes));
+					}
+				}
+			}
+
+			scope.$watch('etime', function (newValue, oldValue) {
+				scope.stime = epochParser(scope.etime, 'time');
+			});
+
+		}
+	};
+})
+
+
+.service('popupService', function($rootScope,$ionicPopup){
+	this.popup = function(text){
+		$ionicPopup.show({
+		  template: '',
+		  title: text,
+		  buttons: [
+			{ 
+			  text: 'Ok',
+			  type: 'button-assertive'
+			},
+		  ]
+		})
+	}
 })
 
