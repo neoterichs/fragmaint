@@ -182,24 +182,28 @@
     
 <script id="templates/scheduledetail.html" type="text/ng-template">
   <ion-view view-title="Details">
-  <ion-nav-buttons side="right">
+  	<ion-nav-buttons side="right">
 		<button class="button button-block login-button button-clear" style="color:#fff; margin:0px;" ng-click="scheduledetailmodal.show()" style="margin-top:-0px;">
 			Add Details
 		</button>
+		
 	</ion-nav-buttons>
 	<ion-content>
-	  	<div class="list">
-        <div class="item item-divider">
-            <center style="font-weight: 500; font-size:17px; ">Schedule Detail</center>
-        </div>
-		<a ng-if="response != 'N'" class="item item-icon-right" ng-repeat="data in response track by $index">
-            {{data.sname}}&nbsp;&nbsp;&nbsp;&nbsp;{{data.stime}}&nbsp;{{data.etime}}
-            <i class="icon ion-edit" style="font-size:20px;"></i>
-		</a>
-		<a ng-if="response == 'N'" class="item">
-           <center>No Record Found</center>
-		</a>
-    </div>
+	<div class="row" style="padding:0px;">
+		<button class="button button-icon icon ion-ios-minus-outline" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+		<div class="col-75"><h1 class="title"></h1></div>
+		<button class="button button-icon icon ion-ios-minus-outline" ng-click="data.showDelete = false; data.showReorder = !data.showReorder"></button>
+	</div>
+		<!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+		<ion-list  show-delete="data.showDelete" show-reorder="data.showReorder" >
+			<ion-item  ng-repeat="data in response track by $index"  item="item" href="#/item/{{item.id}}" class="item-remove-animate">
+			   {{data.sname}}&nbsp;&nbsp;&nbsp;&nbsp;{{data.stime}}&nbsp;{{data.etime}}
+			  <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)"></ion-delete-button>
+			  <ion-option-button class="button-assertive" ng-click="edit(item)">Edit</ion-option-button>
+			  <ion-option-button class="button-calm" ng-click="share(item)">Share</ion-option-button>
+			  <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+			</ion-item>
+		</ion-list>
 	</ion-content>
   </ion-view>
 </script>

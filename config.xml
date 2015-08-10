@@ -50,7 +50,6 @@
 	<gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
 	<gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" />
-	<gap:plugin name="hu.dpal.phonegap.plugins.spinnerdialog" version="0.2.1" />
 	<gap:plugin name="com.megster.cordova.ble" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/icon-48-mdpi.png" />
