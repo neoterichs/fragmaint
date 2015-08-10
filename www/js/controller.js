@@ -82,59 +82,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('scheduledetailCTRL', function($scope,$ionicPopup,$ionicModal,popupService,$cordovaDatePicker,$stateParams,$rootScope) {
-	 $scope.items = [
-    { id: 0 },
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-    { id: 7 },
-    { id: 8 },
-    { id: 9 },
-    { id: 10 },
-    { id: 11 },
-    { id: 12 },
-    { id: 13 },
-    { id: 14 },
-    { id: 15 },
-    { id: 16 },
-    { id: 17 },
-    { id: 18 },
-    { id: 19 },
-    { id: 20 },
-    { id: 21 },
-    { id: 22 },
-    { id: 23 },
-    { id: 24 },
-    { id: 25 },
-    { id: 26 },
-    { id: 27 },
-    { id: 28 },
-    { id: 29 },
-    { id: 30 },
-    { id: 31 },
-    { id: 32 },
-    { id: 33 },
-    { id: 34 },
-    { id: 35 },
-    { id: 36 },
-    { id: 37 },
-    { id: 38 },
-    { id: 39 },
-    { id: 40 },
-    { id: 41 },
-    { id: 42 },
-    { id: 43 },
-    { id: 44 },
-    { id: 45 },
-    { id: 46 },
-    { id: 47 },
-    { id: 48 },
-    { id: 49 },
-    { id: 50 }
-  ];
+	$scope.onItemDelete = function(item) {
+		schedule_detail_data.splice($scope.response.indexOf(item),1);
+		var response_data = JSON.stringify(schedule_detail_data);
+		localStorage.setItem("schedule_details_data",response_data);
+		$rootScope.$broadcast('schedule_detail_list',response_data);
+ 	};
 	var time1 = 0;
 	var time2 = 0;
 	//=============================Initilize variales =============================================================================================
@@ -238,50 +191,23 @@ angular.module('starter.controllers', [])
 	//===============================reload schedule detail =================================================================================================
 	$rootScope.$on('schedule_detail_list', function(event, args) {
 		var response = JSON.parse(args);
-		var schedule_temppdetail_data = [];
-		var flag = false;
-		for(var i in response){
-			if(response[i].sname == $stateParams.schedulename){
-				flag = true;
-				schedule_temppdetail_data.push(response[i]);
-			}
-		}
-		if(flag){
-			var response1 = JSON.stringify(schedule_temppdetail_data);
-			response1 = JSON.parse(response1);
-			$scope.response = response1;
-		}
-		else $scope.response = "N";
+		$scope.shdresponse = {sname : $stateParams.schedulename};
+		$scope.response = response;
 	})
 	
 	//===============================load schedule detail =================================================================================================
 	if(localStorage.getItem("schedule_details_data") != ""){
+		var response = JSON.parse(localStorage.getItem("schedule_details_data"));
 		var flag1 = 1;
 		var arraydetail = JSON.stringify(schedule_detail_data);
 		arraydetail = JSON.parse(arraydetail);
-		
 		if(arraydetail.length > 0)flag1 = 0;
 		else flag1 = 1;
+		for(var i in response){if(flag1 == 1)schedule_detail_data.push(response[i]);}
 		
-		var response = JSON.parse(localStorage.getItem("schedule_details_data"));
-		var schedule_temppdetail_data = [];
-		var flag = false;
-		for(var i in response){
-
-			if(response[i].sname == $stateParams.schedulename){
-				flag = true;
-				schedule_temppdetail_data.push(response[i]);
-			}
-			if(flag1 == 1)schedule_detail_data.push(response[i]);
-		}
-		
-		if(flag){
-			var response1 = JSON.stringify(schedule_temppdetail_data);
-			response1 = JSON.parse(response1);
-			$scope.response = response1;
-		}
-		else $scope.response = "N";
-	}
+		$scope.shdresponse = {sname : $stateParams.schedulename};
+		$scope.response = response;
+}
 });
 
 // function to conver miliseconds to time
