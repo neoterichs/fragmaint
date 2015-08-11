@@ -32,6 +32,8 @@ angular.module('starter.controllers', [])
 .controller('scheduleCTRL', function($scope,$rootScope,$ionicPopup,$ionicModal,popupService,$cordovaDatePicker,$stateParams) {
 	//localStorage.setItem("schedule_list","");
 	//localStorage.setItem("schedule_details_data","");
+	var schedule_Edit_index = 0;
+	
 	var response;
 	$scope.data = {};
 	$scope.data.schedulename = "";
@@ -91,12 +93,13 @@ angular.module('starter.controllers', [])
 	
 	
 	$scope.onItemEdit = function(item) {
-		console.log(item.sname,item.stime,item.device1S,item.device1I);
+		schedule_Edit_index = $scope.response.indexOf(item);
+		console.log($scope.response.indexOf(item));
 		$scope.scheduleEditmodal.show();
 		
 		$scope.slots = [
-			{epochTime: 0, step: 1, format: 12},
-			{epochTime: 0, step: 1, format: 12}
+			{epochTime: item.act_time, step: 1, format: 12},
+			{epochTime: item.act_etime, step: 1, format: 12}
 		];
 	
 		$scope.user = {};
@@ -114,12 +117,19 @@ angular.module('starter.controllers', [])
 	};
 	
 	$scope.updatescheduledetail = function(user) {
-		console.log(user.sname);
+		schedule_detail_data.splice(schedule_Edit_index,1,{sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
+		var response_data = JSON.stringify(schedule_detail_data);
+		console.log(response_data);
+		localStorage.setItem("schedule_details_data",response_data);
+		$rootScope.$broadcast('schedule_detail_list',response_data);
+		$scope.scheduleEditmodal.hide();
 	};
 	
 	
 	var time1 = 0;
 	var time2 = 0;
+	var act_time1 = 0;
+	var act_time2 = 0;
 	//=============================Initilize variales =============================================================================================
 	$scope.user = {};
 	$scope.user.device1status = 0;
@@ -158,6 +168,7 @@ angular.module('starter.controllers', [])
 		if (typeof (val) === 'undefined'){
 			console.log('Time not selected');
 		} else {
+			act_time1 = val;
 			time1 = epochParser(val,'time');
 			console.log('Selected time is : ',time1);
 		}
@@ -166,6 +177,7 @@ angular.module('starter.controllers', [])
 		if (typeof (val) === 'undefined'){
 			console.log('Time not selected');
 		} else {
+			act_time2 = val;
 			time2 = epochParser(val,'time');
 			console.log('Selected time is 2 : ',time2);
 		}
@@ -196,7 +208,7 @@ angular.module('starter.controllers', [])
 				
 				if(pflag){
 					if(!flag){
-						schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
+						schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 						var response_data = JSON.stringify(schedule_detail_data);
 						console.log(response_data);
 						localStorage.setItem("schedule_details_data",response_data);
@@ -206,7 +218,7 @@ angular.module('starter.controllers', [])
 					else popupService.popup("Time exists");
 				}
 				else{
-					schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
+					schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 					var response_data = JSON.stringify(schedule_detail_data);
 					console.log(response_data);
 					localStorage.setItem("schedule_details_data",response_data);
@@ -214,7 +226,7 @@ angular.module('starter.controllers', [])
 					$rootScope.$broadcast('schedule_detail_list',response_data);
 				}
 			}else{
-				schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
+				schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 				var response_data = JSON.stringify(schedule_detail_data);
 				localStorage.setItem("schedule_details_data",response_data);
 				$scope.scheduledetailmodal.hide();

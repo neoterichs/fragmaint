@@ -200,7 +200,7 @@
 	</div>
 		<!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
 		<ion-list  show-delete="data.showDelete" show-reorder="data.showReorder" >
-			<ion-item ng-repeat="data in response track by $index" ng-if="data.sname == shdresponse.sname"  item="item" href="#/item/{{item.id}}" class="item-remove-animate">
+			<ion-item ng-repeat="data in response track by $index" ng-if="data.sname == shdresponse.sname"  item="item" class="item-remove-animate">
 			   {{data.sname}}&nbsp;&nbsp;&nbsp;&nbsp;{{data.stime}}&nbsp;{{data.etime}}
 			  <ion-delete-button class="ion-ios-trash" ng-click="onItemDelete(data)"  style="padding:0px;"></ion-delete-button>
 			  <ion-reorder-button class="ion-edit" style="padding:17px;" ng-click="onItemEdit(data)"></ion-reorder-button>
