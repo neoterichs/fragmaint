@@ -67,8 +67,7 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
         }
       }
     })
-	
-    .state('tabs.navstack', {
+	.state('tabs.navstack', {
       url: "/navstack",
       views: {
         'about-tab': {
@@ -86,7 +85,6 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
     });
 
 	$urlRouterProvider.otherwise("/tab/home");
-
 })
 
 .directive('standardTimeMeridian', function () {
@@ -129,7 +127,6 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 			scope.$watch('etime', function (newValue, oldValue) {
 				scope.stime = epochParser(scope.etime, 'time');
 			});
-
 		}
 	};
 })

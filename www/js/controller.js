@@ -88,6 +88,36 @@ angular.module('starter.controllers', [])
 		localStorage.setItem("schedule_details_data",response_data);
 		$rootScope.$broadcast('schedule_detail_list',response_data);
  	};
+	
+	
+	$scope.onItemEdit = function(item) {
+		console.log(item.sname,item.stime,item.device1S,item.device1I);
+		$scope.scheduleEditmodal.show();
+		
+		$scope.slots = [
+			{epochTime: 0, step: 1, format: 12},
+			{epochTime: 0, step: 1, format: 12}
+		];
+	
+		$scope.user = {};
+		$scope.user.device1status = item.device1S;
+		$scope.user.device1intensity = item.device1I;
+		
+		$scope.user.device2status = item.device2S;
+		$scope.user.device2intensity = item.device2I;
+		
+		$scope.user.device3status = item.device3S;
+		$scope.user.device3intensity = item.device3I;
+		
+		$scope.user.device4status = item.device4S;
+		$scope.user.device4intensity = item.device4I;
+	};
+	
+	$scope.updatescheduledetail = function(user) {
+		console.log(user.sname);
+	};
+	
+	
 	var time1 = 0;
 	var time2 = 0;
 	//=============================Initilize variales =============================================================================================
@@ -109,6 +139,13 @@ angular.module('starter.controllers', [])
 		scope: $scope
 	}).then(function(modal) {
 		$scope.scheduledetailmodal = modal;
+	});
+	
+	//===============================code for edit ionic model ===========================================================================================
+	$ionicModal.fromTemplateUrl('tabs/scheduleEditmodal.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.scheduleEditmodal = modal;
 	});
 	
 	//===============================code for timepicker=============================================================================================
@@ -159,7 +196,7 @@ angular.module('starter.controllers', [])
 				
 				if(pflag){
 					if(!flag){
-						schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1:user.device3status});
+						schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 						var response_data = JSON.stringify(schedule_detail_data);
 						console.log(response_data);
 						localStorage.setItem("schedule_details_data",response_data);
@@ -169,7 +206,7 @@ angular.module('starter.controllers', [])
 					else popupService.popup("Time exists");
 				}
 				else{
-					schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1:user.device3status});
+					schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 					var response_data = JSON.stringify(schedule_detail_data);
 					console.log(response_data);
 					localStorage.setItem("schedule_details_data",response_data);
@@ -177,7 +214,7 @@ angular.module('starter.controllers', [])
 					$rootScope.$broadcast('schedule_detail_list',response_data);
 				}
 			}else{
-				schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1:user.device3status});
+				schedule_detail_data.push({sname:$stateParams.schedulename,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 				var response_data = JSON.stringify(schedule_detail_data);
 				localStorage.setItem("schedule_details_data",response_data);
 				$scope.scheduledetailmodal.hide();
@@ -207,7 +244,7 @@ angular.module('starter.controllers', [])
 		
 		$scope.shdresponse = {sname : $stateParams.schedulename};
 		$scope.response = response;
-}
+	}
 });
 
 // function to conver miliseconds to time
