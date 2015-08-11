@@ -189,7 +189,7 @@
 		
 	</ion-nav-buttons>
 	<ion-content>
-	<div class="row"  style="padding:0px;">
+	<div class="row" style="padding:0px;">
 		<div class="col-25" style=" float:right;">
 			<button class="button button-icon icon ion-ios-minus-outline" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
 		</div>
@@ -202,8 +202,8 @@
 		<ion-list  show-delete="data.showDelete" show-reorder="data.showReorder" >
 			<ion-item ng-repeat="data in response track by $index" ng-if="data.sname == shdresponse.sname"  item="item" class="item-remove-animate">
 			   {{data.sname}}&nbsp;&nbsp;&nbsp;&nbsp;{{data.stime}}&nbsp;{{data.etime}}
-			  <ion-delete-button class="ion-ios-trash" ng-click="onItemDelete(data)"  style="padding:0px;"></ion-delete-button>
-			  <ion-reorder-button class="ion-edit" style="padding:17px;" ng-click="onItemEdit(data)"></ion-reorder-button>
+			  <ion-delete-button class="ion-ios-trash" ng-click="onItemDelete(data)"  style="padding:1px;"></ion-delete-button>
+			  <ion-reorder-button class="font_pancil ion-edit" ng-click="onItemEdit(data)"></ion-reorder-button>
 			</ion-item>
 		</ion-list>
 	</ion-content>
