@@ -23,7 +23,7 @@
 <ion-nav-view></ion-nav-view>
 
 <script id="templates/tabs.html" type="text/ng-template">
-<ion-tabs class="tabs-icon-top">
+<ion-tabs class="tabs-icon-bottom">
     <ion-tab title="Home" icon="ion-home" href="#/tab/home">
       <ion-nav-view name="home-tab"></ion-nav-view>
     </ion-tab>
@@ -143,39 +143,41 @@
     <ion-content>
         <ul class="list">
             <li><a href="#/tab/schedule" class="item item-icon-right">Schedule</a></li>
+			<li><a href="#/tab/devicesetting" class="item item-icon-right">Paired Devices</a></li>
         </ul>
     </ion-content>
   </ion-view>
 </script>
 
-<script id="templates/schedule.html" type="text/ng-template">
-  <ion-view view-title="Schedule">
+<script id="templates/devicesetting.html" type="text/ng-template">
+<ion-view view-title="Device Setting">
+	<ion-content>
+		<div style="padding-top:48px;">
+			<ion-tabs class="tabs-icon-top">
+					<ion-tab title="Scan Devices" icon="ion-bluetooth" href="#/tab/scan">
+						<ion-nav-view name="scan-tab"></ion-nav-view>
+					</ion-tab>
+					<ion-tab title="Paired Devices" icon="ion-ios-settings" href="#/tab/paired">
+						<ion-nav-view name="paired-tab"></ion-nav-view>
+					</ion-tab>
+			</ion-tabs>
+		</div>
+	</ion-content>
+</ion-view>
+</script>
+
+<script id="templates/scan.html" type="text/ng-template">
+  <ion-view view-title="Scan Devices">
     <ion-content>
-    <div class="bar bar-header">
-      <h1 class="title">Add Schedule</h1>
-    </div>
-    <div class="row  bar bar-subheader">
-        <div class="col-75" >
-            <label class="item-input">
-            <input type="text" placeholder="Schedule Name" ng-model="data.schedulename">
-            </label>
-        </div>
-        <div class="col-25">
-            <button class="button button-small button-clear" style="font-weight:600; color:#0898A1; float:right" ng-click="saveschedule(data.schedulename)">
-                ADD
-            </button>
-        </div>
-    </div>
-    <div class="list" style="padding-top:88px;">
-        <div class="item item-divider" style="border-top:20px solid #078189">
-            <center style="font-weight: 500; font-size:17px; ">Schedule List</center>
-        </div>
         
-        <a class="item item-icon-right" ui-sref="tabs.scheduledetail({schedulename:data.sname})" ng-repeat="data in response track by $index">
-            {{data.sname}}
-            <i class="icon ion-ios-arrow-right icon-right"></i>
-        </a>
-    </div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/paired.html" type="text/ng-template">
+  <ion-view view-title="Paired Devices">
+    <ion-content>
+        
     </ion-content>
   </ion-view>
 </script>
@@ -400,6 +402,38 @@
 	<button id="refreshButton" class="button button-full" style="background-color:#0898A1; color:#fff;" ng-click="updatescheduledetail(user)">Update</button>
 	</ion-content>
   </ion-modal-view>
+</script>
+
+<script id="templates/schedule.html" type="text/ng-template">
+  <ion-view view-title="Schedule">
+    <ion-content>
+    <div class="bar bar-header">
+      <h1 class="title">Add Schedule</h1>
+    </div>
+    <div class="row  bar bar-subheader">
+        <div class="col-75" >
+            <label class="item-input">
+            <input type="text" placeholder="Schedule Name" ng-model="data.schedulename">
+            </label>
+        </div>
+        <div class="col-25">
+            <button class="button button-small button-clear" style="font-weight:600; color:#0898A1; float:right" ng-click="saveschedule(data.schedulename)">
+                ADD
+            </button>
+        </div>
+    </div>
+    <div class="list" style="padding-top:88px;">
+        <div class="item item-divider" style="border-top:20px solid #078189">
+            <center style="font-weight: 500; font-size:17px; ">Schedule List</center>
+        </div>
+        
+        <a class="item item-icon-right" ui-sref="tabs.scheduledetail({schedulename:data.sname})" ng-repeat="data in response track by $index">
+            {{data.sname}}
+            <i class="icon ion-ios-arrow-right icon-right"></i>
+        </a>
+    </div>
+    </ion-content>
+  </ion-view>
 </script>
 
 <script id="templates/about.html" type="text/ng-template">

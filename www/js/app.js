@@ -50,6 +50,14 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 		}
       }
     })
+	.state('tabs.devicesetting', {
+      url: "/devicesetting",
+      views: {
+        'setting-tab' :{
+          templateUrl: "templates/devicesetting.html"
+		}
+      }
+    })
 	.state('tabs.scheduledetail', {
 		url: "/scheduledetail/:schedulename",
 		views: {
@@ -58,7 +66,23 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 			controller: 'scheduledetailCTRL'
 		  }
 		}
-	  })
+	 })
+	 .state('tabs.scan', {
+		url: "/scan",
+		views: {
+		  'scan-tab': {
+				templateUrl: "templates/scan.html"
+			}
+		}
+	 })
+	 .state('tabs.paired', {
+		url: "/paired",
+		views: {
+		  'paired-tab': {
+			templateUrl: "templates/paired.html"
+			}
+		}
+	 })
     .state('tabs.about', {
       url: "/about",
       views: {

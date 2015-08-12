@@ -33,7 +33,6 @@ angular.module('starter.controllers', [])
 	//localStorage.setItem("schedule_list","");
 	//localStorage.setItem("schedule_details_data","");
 	var schedule_Edit_index = 0;
-	
 	var response;
 	$scope.data = {};
 	$scope.data.schedulename = "";
