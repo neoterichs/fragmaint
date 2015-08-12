@@ -84,6 +84,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('scheduledetailCTRL', function($scope,$ionicPopup,$ionicModal,popupService,$cordovaDatePicker,$stateParams,$rootScope) {
+	var time1 = 0;
+	var time2 = 0;
+	var act_time1 = 0;
+	var act_time2 = 0;
+	
 	$scope.onItemDelete = function(item) {
 		schedule_detail_data.splice($scope.response.indexOf(item),1);
 		var response_data = JSON.stringify(schedule_detail_data);
@@ -91,12 +96,14 @@ angular.module('starter.controllers', [])
 		$rootScope.$broadcast('schedule_detail_list',response_data);
  	};
 	
-	
 	$scope.onItemEdit = function(item) {
 		schedule_Edit_index = $scope.response.indexOf(item);
 		console.log($scope.response.indexOf(item));
 		$scope.scheduleEditmodal.show();
-		
+		time1 = item.stime;
+		time2 = item.etime;
+		act_time1 = item.act_time;
+		act_time2 = item.act_etime;
 		$scope.slots = [
 			{epochTime: item.act_time, step: 1, format: 12},
 			{epochTime: item.act_etime, step: 1, format: 12}
@@ -117,19 +124,40 @@ angular.module('starter.controllers', [])
 	};
 	
 	$scope.updatescheduledetail = function(user) {
-		schedule_detail_data.splice(schedule_Edit_index,1,{sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
-		var response_data = JSON.stringify(schedule_detail_data);
-		console.log(response_data);
-		localStorage.setItem("schedule_details_data",response_data);
-		$rootScope.$broadcast('schedule_detail_list',response_data);
-		$scope.scheduleEditmodal.hide();
+		var response1 = JSON.stringify(schedule_detail_data);
+		response1 = JSON.parse(response1);
+				
+		var flag = false;
+		for(var i in response1){
+			if((response1[i].sname == $stateParams.schedulename) && (i != schedule_Edit_index)){
+				if((act_time1 >= response1[i].act_time) && (act_time1 < response1[i].act_etime)){
+					flag = true;
+				}
+				else if((act_time2 > response1[i].act_time) && (act_time2 <= response1[i].act_etime)){
+					flag = true;
+				}
+				else flag = false;
+			}
+			if(flag){
+				console.log("true");
+				break
+			};
+		}
+			
+		if(!flag){
+			schedule_detail_data.splice(schedule_Edit_index,1,{sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
+			var response_data = JSON.stringify(schedule_detail_data);
+			console.log(response_data);
+			localStorage.setItem("schedule_details_data",response_data);
+			$rootScope.$broadcast('schedule_detail_list',response_data);
+			$scope.scheduleEditmodal.hide();
+			}
+		else {
+			console.log("els");
+			popupService.popup("Time already exists");
+		}
 	};
 	
-	
-	var time1 = 0;
-	var time2 = 0;
-	var act_time1 = 0;
-	var act_time2 = 0;
 	//=============================Initilize variales =============================================================================================
 	$scope.user = {};
 	$scope.user.device1status = 0;
@@ -170,7 +198,7 @@ angular.module('starter.controllers', [])
 		} else {
 			act_time1 = val;
 			time1 = epochParser(val,'time');
-			console.log('Selected time is : ',time1);
+			console.log('Selected time is : ',act_time1);
 		}
 	};
 	$scope.timePickerCallback1 = function (val) {
@@ -179,35 +207,58 @@ angular.module('starter.controllers', [])
 		} else {
 			act_time2 = val;
 			time2 = epochParser(val,'time');
-			console.log('Selected time is 2 : ',time2);
+			console.log('Selected time is 2 : ',act_time2);
 		}
 	};
 	
 	//===============================save schedule detail =================================================================================================
 	$scope.savescheduledetail = function(user){
-		if(time1 != 0 || time2 != 0){
-			var response1 = JSON.stringify(schedule_detail_data);
-			response1 = JSON.parse(response1);
-			
-			if(response1.length > 0){
-				var flag = false;
-				var pflag = false;
-				for(var i in response1){
-					if(response1[i].sname == $stateParams.schedulename){
-						pflag = true;
-						if(response1[i].stime == time1 || response1[i].etime == time2){
-							flag = true;
-							break;
+		if(act_time1 != 0 || act_time2 != 0){
+			if(act_time1 > act_time2){
+				popupService.popup("Start time should be less than End time");
+			}
+			else{
+				var response1 = JSON.stringify(schedule_detail_data);
+				response1 = JSON.parse(response1);
+				
+				if(response1.length > 0){
+					var flag = false;
+					var pflag = false;
+					for(var i in response1){
+						if(response1[i].sname == $stateParams.schedulename){
+							pflag = true;
+							if((act_time1 >= response1[i].act_time) && (act_time1 < response1[i].act_etime)){
+								flag = true;
+							}
+							else if((act_time2 > response1[i].act_time) && (act_time2 <= response1[i].act_etime)){
+								flag = true;
+							}
+							else flag = false;
 						}
-						else flag = false;
+						else{
+							if(!pflag)pflag = false;
+						}
+						if(flag){
+							console.log("true");
+							break
+						};
+					}
+					
+					if(pflag){
+						if(!flag){
+							schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
+							var response_data = JSON.stringify(schedule_detail_data);
+							console.log(response_data);
+							localStorage.setItem("schedule_details_data",response_data);
+							$scope.scheduledetailmodal.hide();
+							$rootScope.$broadcast('schedule_detail_list',response_data);
+						}
+						else {
+							console.log("els");
+							popupService.popup("Time already exists");
+						}
 					}
 					else{
-						if(!pflag)pflag = false;
-					}
-				}
-				
-				if(pflag){
-					if(!flag){
 						schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 						var response_data = JSON.stringify(schedule_detail_data);
 						console.log(response_data);
@@ -215,26 +266,17 @@ angular.module('starter.controllers', [])
 						$scope.scheduledetailmodal.hide();
 						$rootScope.$broadcast('schedule_detail_list',response_data);
 					}
-					else popupService.popup("Time exists");
-				}
-				else{
+				}else{
 					schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
 					var response_data = JSON.stringify(schedule_detail_data);
-					console.log(response_data);
 					localStorage.setItem("schedule_details_data",response_data);
 					$scope.scheduledetailmodal.hide();
 					$rootScope.$broadcast('schedule_detail_list',response_data);
-				}
-			}else{
-				schedule_detail_data.push({sname:$stateParams.schedulename,act_time:act_time1,act_etime:act_time2,stime:time1,etime:time2,device1S:user.device1status,device1I:user.device1intensity,device2S:user.device2status,device2I:user.device2intensity,device3S:user.device3status,device3I:user.device3intensity,device4S:user.device4status,device4I:user.device4intensity});
-				var response_data = JSON.stringify(schedule_detail_data);
-				localStorage.setItem("schedule_details_data",response_data);
-				$scope.scheduledetailmodal.hide();
-				$rootScope.$broadcast('schedule_detail_list',response_data);
-				console.log(response_data);
-			}
+					console.log(response_data);
+				}// close else of response1.length > 0
+			}// close else of atime is grater
 		}
-		else popupService.popup("Please fill all fields");
+		else popupService.popup("Please fill all fields");//close else of time1 != 0 || time2 != 0
 	};
 	
 	//===============================reload schedule detail =================================================================================================

@@ -195,7 +195,7 @@
 		</div>
 		<div class="col-50"><h1 class="title"></h1></div>
 		<div class="col-25" >
-			<button class="button button-icon icon ion-ios-minus-outline" style=" float:right;" ng-click="data.showDelete = false; data.showReorder = !data.showReorder"></button>
+			<button class="button button-icon icon" style=" float:right;" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">Edit</button>
 		</div>
 	</div>
 		<!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
@@ -221,7 +221,7 @@
 	  <div class="col">Start Time</div>
 	  	<div class="col col-50">
 	  		<ionic-timepicker etime="slots[0].epochTime" format="slots[0].format" step="slots[0].step" callback="timePickerCallback">
-					 <standard-time-meridian etime='slots[0].epochTime'></standard-time-meridian>
+				<standard-time-meridian etime='slots[0].epochTime'></standard-time-meridian>
 			</ionic-timepicker>
 		</div>
 	</div>
@@ -229,7 +229,7 @@
 		<div class="col">End Time</div>
 	  	<div class="col col-50">
 	  		<ionic-timepicker etime="slots[1].epochTime" format="slots[1].format" step="slots[1].step" callback="timePickerCallback1">
-					 <standard-time-meridian etime='slots[1].epochTime'></standard-time-meridian>
+				<standard-time-meridian etime='slots[1].epochTime'></standard-time-meridian>
 			</ionic-timepicker>
 		</div>
 	</div>
