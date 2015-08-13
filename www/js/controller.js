@@ -304,7 +304,7 @@ angular.module('starter.controllers', [])
 
 .controller('scanCTRL', function($scope) {
 	//======================================Initiallize app=================================================
-	app.initialize1();
+	app1.initialize1();
 })
 
 .controller('pairedCTRL', function($scope) {

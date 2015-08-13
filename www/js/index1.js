@@ -56,22 +56,10 @@ var app1 = {
 			};
 		ble.connect(deviceId,onConnect,app.onError);
 	},
-    onreceiveData: function(data) {
-        console.log(data);
-        var message;
-        var a = bytesToString(data);
-        batteryState.innerHTML = a;
-    },
     disconnect: function(event) {
         var deviceId = event.target.dataset.deviceId;
         ble.disconnect(deviceId, app.showMainPage, app.onError);
     },
-	sendData: function(device,status,intensity) {
-		var data = ""; 
-		if(status)data = stringToBytes("2"+device+"1"+intensity+"3DA");
-		else data = stringToBytes("2"+device+"0"+intensity+"3DA");
-		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
-	},
 	showMainPage: function() {
         mainPage.hidden = false;
         detailPage.hidden = true;
