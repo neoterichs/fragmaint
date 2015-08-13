@@ -24,15 +24,17 @@ var app1 = {
         this.bindEvents1();
     },
     bindEvents1: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        refreshButton1.addEventListener('touchstart', this.refreshDeviceList, false);
-        deviceList1.addEventListener('touchstart', this.connect, false); // assume not scrolling
+		document.addEventListener('deviceready', this.onDeviceReady1, false);
+        refreshButton1.addEventListener('touchstart', this.refreshDeviceList1, false);
+        deviceList1.addEventListener('touchstart', this.connect1, false); // assume not scrolling
 	},
-    onDeviceReady: function() {
-        app.refreshDeviceList();
+    onDeviceReady1: function() {
+        app.refreshDeviceList1();
+		
     },
-    refreshDeviceList: function() {
-        deviceList1.innerHTML = ''; // empties the list
+    refreshDeviceList1: function() {
+
+        deviceList1.innerHTML = 'refreshiing'; // empties the list
         // scan for all devices
         ble.scan([], 5, app.onDiscoverDevice, app.onError);
     },
@@ -49,12 +51,12 @@ var app1 = {
 		global_deviceid = device.id;
 		global_name = device.name;
     },
-    connect: function(e) {
+    connect1: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
 				alert("dd");
 			};
-		ble.connect(deviceId,onConnect,app.onError);
+		ble.connect1(deviceId,onConnect,app.onError);
 	},
     disconnect: function(event) {
         var deviceId = event.target.dataset.deviceId;
