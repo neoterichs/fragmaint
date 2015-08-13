@@ -1,7 +1,7 @@
 'use strict';
 
 //global uuid id
-var paired_deviceid = "dfd";
+var paired_deviceid = [];
 var global_name = "";
 //string to ascii
 function stringToBytes(string) {
@@ -38,7 +38,7 @@ var app1 = {
     },
     onDiscoverDevice: function(device) {
 		console.log(JSON.stringify(device));
-        var listItem = document.createElement('li'),
+		var listItem = document.createElement('li'),
             html = '<b>' + device.name + '</b><br/>' +
                 'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
                 device.id;
@@ -46,12 +46,26 @@ var app1 = {
         listItem.dataset.deviceId = device.id;  // TODO
         listItem.innerHTML = html;
         deviceList1.appendChild(listItem);
-		paired_deviceid = device.id;
 		global_name = device.name;
     },
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
-            onConnect = function() {
+            onConnect = function(){
+				var response1 = JSON.stringify(paired_deviceid);
+				response1 = JSON.parse(response1);
+				var flag = false;
+				if(response1.length > 0){
+					for(var i in response1){
+						if(response1[i].deviceid != deviceId){
+							flag = true;
+							break;
+						}
+					}
+				}
+				else paired_deviceid.push({deviceid:deviceId});
+				
+				if(flag)paired_deviceid.push({deviceid:deviceId});
+				
 				app1.refreshDeviceList();
 			};
 		ble.connect(deviceId,onConnect,app1.onError);

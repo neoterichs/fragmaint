@@ -144,14 +144,14 @@
     <ion-content>
         <ul class="list">
             <li><a href="#/tab/schedule" class="item item-icon-right">Schedule</a></li>
-			<li><a href="#/tab/devicesetting" class="item item-icon-right">Paired Devices</a></li>
+			<li><a href="#/tab/devicesetting" class="item item-icon-right">Device Settings</a></li>
         </ul>
     </ion-content>
   </ion-view>
 </script>
 
 <script id="templates/devicesetting.html" type="text/ng-template">
-<ion-view view-title="Device Setting">
+<ion-view view-title="Device Settings">
 	<ion-content>
 		<ul class="list">
             <li><a href="#/tab/scan" class="item item-icon-right">Scan Devices</a></li>
@@ -166,9 +166,8 @@
     <ion-content>
 		<div class="app1" style="padding-top:0px;">
 			<div id="mainPage">
-				<button id="refreshButton1" class="button button-full" style="background-color:#0898A1; color:#fff;">Refresh List</button>
+				<button id="refreshButton1" class="button button-full button-stable" style="margin-top:-1px;">Refresh List</button>
 				<ul id="deviceList1">
-				dsds
 				</ul>
 			</div>
 		</div>
@@ -180,7 +179,8 @@
   <ion-view view-title="Paired Devices">
     <ion-content>
         <ul class="list">
-            <li id="pairedlist"></li>
+            <li ng-repeat="data in response" ng-if="response != 'N'"><a class="item">{{data.deviceid}}</a></li>
+			<li ng-repeat="data in response" ng-if="response == 'N'"><a class="item"><center>No Device paired</center></a></li>
 		</ul>
     </ion-content>
   </ion-view>
