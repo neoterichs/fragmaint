@@ -1,7 +1,7 @@
 'use strict';
 
 //global uuid id
-var global_deviceid = "";
+var paired_deviceid = "dfd";
 var global_name = "";
 //string to ascii
 function stringToBytes(string) {
@@ -46,7 +46,7 @@ var app1 = {
         listItem.dataset.deviceId = device.id;  // TODO
         listItem.innerHTML = html;
         deviceList1.appendChild(listItem);
-		global_deviceid = device.id;
+		paired_deviceid = device.id;
 		global_name = device.name;
     },
     connect: function(e) {

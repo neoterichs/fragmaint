@@ -308,7 +308,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('pairedCTRL', function($scope) {
-	
+	pairedlist.innerHTML = paired_deviceid;
 })
 
 // function to conver miliseconds to time
