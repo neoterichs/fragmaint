@@ -152,16 +152,10 @@
 <script id="templates/devicesetting.html" type="text/ng-template">
 <ion-view view-title="Device Setting">
 	<ion-content>
-		<div style="padding-top:48px;">
-			<ion-tabs class="tabs-icon-top">
-					<ion-tab title="Scan Devices" icon="ion-bluetooth" href="#/tab/scan">
-						<ion-nav-view name="scan-tab"></ion-nav-view>
-					</ion-tab>
-					<ion-tab title="Paired Devices" icon="ion-ios-settings" href="#/tab/paired">
-						<ion-nav-view name="paired-tab"></ion-nav-view>
-					</ion-tab>
-			</ion-tabs>
-		</div>
+		<ul class="list">
+            <li><a href="#/tab/scan" class="item item-icon-right">Scan Devices</a></li>
+			<li><a href="#/tab/paired" class="item item-icon-right">Paired Devices</a></li>
+        </ul>
 	</ion-content>
 </ion-view>
 </script>
@@ -169,7 +163,14 @@
 <script id="templates/scan.html" type="text/ng-template">
   <ion-view view-title="Scan Devices">
     <ion-content>
-        
+		<div class="app" style="padding-top:0px;">
+			<div id="mainPage">
+				<button id="refreshButton" class="button button-full" style="background-color:#0898A1; color:#fff;">Refresh List</button>
+				<div id="jsondevicelist"></div>
+				<ul id="deviceList">
+				</ul>
+			</div>
+		</div>
     </ion-content>
   </ion-view>
 </script>

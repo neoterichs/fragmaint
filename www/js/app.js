@@ -70,16 +70,18 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 	 .state('tabs.scan', {
 		url: "/scan",
 		views: {
-		  'scan-tab': {
-				templateUrl: "templates/scan.html"
+		  'setting-tab': {
+				templateUrl: "templates/scan.html",
+				controller: 'scanCTRL'
 			}
 		}
 	 })
 	 .state('tabs.paired', {
 		url: "/paired",
 		views: {
-		  'paired-tab': {
-			templateUrl: "templates/paired.html"
+		  'setting-tab': {
+				templateUrl: "templates/paired.html",
+				controller: 'pairedCTRL'
 			}
 		}
 	 })

@@ -24,12 +24,19 @@ var app = {
         this.bindEvents();
         detailPage.hidden = true;
     },
+	initialize1: function() {
+        this.bindEvents1();
+    },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
         disconnectButton.addEventListener('touchstart', this.disconnect, false);
         deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
 	},
+	bindEvents1: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
+    },
     onDeviceReady: function() {
         app.refreshDeviceList();
     },

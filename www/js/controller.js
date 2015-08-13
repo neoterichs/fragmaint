@@ -44,7 +44,7 @@ angular.module('starter.controllers', [])
 				var hasMatch = false;
 				var templist = JSON.stringify(schedule_data);
 				templist = JSON.parse(templist);
-				for (var index = 0; index < templist.length; index++) {
+				for(var index = 0; index < templist.length; index++) {
 					if(templist[index].sname == name){
 						hasMatch = true;
 						break;
@@ -173,15 +173,17 @@ angular.module('starter.controllers', [])
 	
 	//===============================code for ionic model ===========================================================================================
 	$ionicModal.fromTemplateUrl('tabs/scheduledetailmodal.html', {
-		scope: $scope
+		scope: $scope,
+		backdropClickToClose: false
 	}).then(function(modal) {
 		$scope.scheduledetailmodal = modal;
 	});
 	
 	//===============================code for edit ionic model ===========================================================================================
 	$ionicModal.fromTemplateUrl('tabs/scheduleEditmodal.html', {
-		scope: $scope
-	}).then(function(modal) {
+		scope: $scope,
+		backdropClickToClose: false
+    }).then(function(modal) {
 		$scope.scheduleEditmodal = modal;
 	});
 	
@@ -298,7 +300,16 @@ angular.module('starter.controllers', [])
 		$scope.shdresponse = {sname : $stateParams.schedulename};
 		$scope.response = response;
 	}
-});
+})
+
+.controller('scanCTRL', function($scope) {
+	//======================================Initiallize app=================================================
+	app.initialize1();
+})
+
+.controller('pairedCTRL', function($scope) {
+	
+})
 
 // function to conver miliseconds to time
 function prependZero(param) {
