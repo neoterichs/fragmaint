@@ -6,7 +6,7 @@ var global_name = "";
 //string to ascii
 function stringToBytes(string) {
    var array = new Uint8Array(string.length);
-   for (var i = 0, l = string.length; i < l; i++) {
+   for (var i = 0, l = string.length; i < l; i++){
 	   array[i] = string.charCodeAt(i);
 	}
 	return array.buffer;
@@ -38,19 +38,37 @@ var app1 = {
     },
     onDiscoverDevice: function(device) {
 		console.log(JSON.stringify(device));
-		var listItem = document.createElement('li'),
-            html = '<b>' + device.name + '</b><br/>' +
-                'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
-                device.id;
-
-        listItem.dataset.deviceId = device.id;  // TODO
-        listItem.innerHTML = html;
-        deviceList1.appendChild(listItem);
-		global_name = device.name;
-    },
+		var response1 = JSON.stringify(paired_deviceid);
+		response1 = JSON.parse(response1);
+		var flag = false;
+		if(response1.length > 0){
+			for(var i in response1){
+				if(response1[i].deviceid != device.id){
+					flag = true;
+					break;
+				}
+			}
+		}else{
+			var listItem = document.createElement('li'),
+			html = '<b>' + device.name + '</b><br/>' + 'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' + device.id;
+			listItem.dataset.deviceId = device.id;  // TODO
+			listItem.dataset.deviceName = device.name;  // TODO
+			listItem.innerHTML = html;
+			deviceList1.appendChild(listItem);
+		}
+		
+		if(flag){
+			var listItem = document.createElement('li'),
+			html = '<b>' + device.name + '</b><br/>' + 'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' + device.id;
+			listItem.dataset.deviceId = device.id;  // TODO
+			listItem.dataset.deviceName = device.name;  // TODO
+			listItem.innerHTML = html;
+			deviceList1.appendChild(listItem);
+		}
+	},
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
-            onConnect = function(){
+			onConnect = function(){
 				var response1 = JSON.stringify(paired_deviceid);
 				response1 = JSON.parse(response1);
 				var flag = false;
@@ -62,12 +80,11 @@ var app1 = {
 						}
 					}
 				}
-				else paired_deviceid.push({deviceid:deviceId});
-				
-				if(flag)paired_deviceid.push({deviceid:deviceId});
-				
+				else paired_deviceid.push({deviceid:deviceId,devicename:deviceName});
+				if(flag)paired_deviceid.push({deviceid:deviceId,devicename:deviceName});
 				app1.refreshDeviceList();
 			};
+		var deviceName = e.target.dataset.deviceName;
 		ble.connect(deviceId,onConnect,app1.onError);
 	},
     disconnect: function(event) {

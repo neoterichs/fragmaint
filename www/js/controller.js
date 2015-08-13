@@ -215,7 +215,7 @@ angular.module('starter.controllers', [])
 	//===============================save schedule detail =================================================================================================
 	$scope.savescheduledetail = function(user){
 		if(act_time1 != 0 || act_time2 != 0){
-			if(act_time1 > act_time2){
+			if(act_time1 >= act_time2){
 				popupService.popup("Start time should be less than End time");
 			}
 			else{
@@ -307,11 +307,34 @@ angular.module('starter.controllers', [])
 	app1.initialize1();
 })
 
-.controller('pairedCTRL', function($scope) {
+.controller('pairedCTRL', function($scope,$ionicPopup,$ionicModal,$stateParams,$rootScope) {
+	// code for Schedule
+	paired_deviceid.push({deviceid:"sdfdsff",devicename:"ankush"});
+	var Shd_json = JSON.parse(localStorage.getItem("schedule_details_data"));
+	
+	
+	var Shd_response = Shd_json;
+	$scope.Shd_response = Shd_response;
+	
+	// code for paired Device
 	var response = JSON.stringify(paired_deviceid);
 	response = JSON.parse(response);
 	if(response.length > 0)$scope.response = response;
 	else $scope.response = "N";
+	
+	$scope.pairedsetting = function(){
+		$ionicPopup.show({
+		  template: '<div class="row"><div class="col">Unpair Device</div><div class="col col-50"><label class="toggle toggle-balanced" id="unpairdevice"><input type="checkbox" id="unpaircheckbox1"><div class="track"><div class="handle"></div></div></label></div></div><div class="row"><div class="col">Schedule</div><div class="col col-50"><select><option value="1" ng-repeat="data in Shd_response">{{data.sname}}</option></select></div></div>',
+		  title: 'Setting',
+		  scope: $scope,
+		  buttons: [
+			{
+			  text: 'Ok',
+			  type: 'button-calm'
+			},
+		  ]
+		})
+	};
 })
 
 // function to conver miliseconds to time

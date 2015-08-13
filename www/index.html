@@ -179,7 +179,7 @@
   <ion-view view-title="Paired Devices">
     <ion-content>
         <ul class="list">
-            <li ng-repeat="data in response" ng-if="response != 'N'"><a class="item">{{data.deviceid}}</a></li>
+            <li ng-repeat="data in response" ng-if="response != 'N'" ng-click="pairedsetting()"><a class="item">{{data.devicename}}</a></li>
 			<li ng-repeat="data in response" ng-if="response == 'N'"><a class="item"><center>No Device paired</center></a></li>
 		</ul>
     </ion-content>
