@@ -24,19 +24,17 @@ var app1 = {
         this.bindEvents1();
     },
     bindEvents1: function() {
-		document.addEventListener('deviceready', this.onDeviceReady1, false);
-        refreshButton1.addEventListener('touchstart', this.refreshDeviceList1, false);
-        deviceList1.addEventListener('touchstart', this.connect1, false); // assume not scrolling
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        refreshButton1.addEventListener('touchstart', this.refreshDeviceList, false);
+        deviceList1.addEventListener('touchstart', this.connect, false); // assume not scrolling
 	},
-    onDeviceReady1: function() {
-        app.refreshDeviceList1();
-		
+    onDeviceReady: function() {
+        app1.refreshDeviceList();
     },
-    refreshDeviceList1: function() {
-
-        deviceList1.innerHTML = 'refreshiing'; // empties the list
+    refreshDeviceList: function() {
+        deviceList1.innerHTML = ''; // empties the list
         // scan for all devices
-        ble.scan([], 5, app.onDiscoverDevice, app.onError);
+        ble.scan([], 5, app1.onDiscoverDevice, app1.onError);
     },
     onDiscoverDevice: function(device) {
 		console.log(JSON.stringify(device));
@@ -51,16 +49,16 @@ var app1 = {
 		global_deviceid = device.id;
 		global_name = device.name;
     },
-    connect1: function(e) {
+    connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
 				alert("dd");
 			};
-		ble.connect1(deviceId,onConnect,app.onError);
+		ble.connect(deviceId,onConnect,app1.onError);
 	},
     disconnect: function(event) {
         var deviceId = event.target.dataset.deviceId;
-        ble.disconnect(deviceId, app.showMainPage, app.onError);
+        ble.disconnect(deviceId, app1.showMainPage, app1.onError);
     },
 	showMainPage: function() {
         mainPage.hidden = false;
