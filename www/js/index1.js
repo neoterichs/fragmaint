@@ -19,7 +19,7 @@ function bytesToString(buffer) {
 
 var battery = {service: "FFE0",level: "2A19",char:"FFE1"};
 
-var app = {
+var app1 = {
     initialize1: function() {
         this.bindEvents1();
     },
