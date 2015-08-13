@@ -20,21 +20,19 @@ function bytesToString(buffer) {
 var battery = {service: "FFE0",level: "2A19",char:"FFE1"};
 
 var app = {
-    initialize: function() {
-        this.bindEvents();
-        detailPage.hidden = true;
+    initialize1: function() {
+        this.bindEvents1();
     },
-    bindEvents: function() {
+    bindEvents1: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
-        disconnectButton.addEventListener('touchstart', this.disconnect, false);
-        deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
+        refreshButton1.addEventListener('touchstart', this.refreshDeviceList, false);
+        deviceList1.addEventListener('touchstart', this.connect, false); // assume not scrolling
 	},
     onDeviceReady: function() {
         app.refreshDeviceList();
     },
     refreshDeviceList: function() {
-        deviceList.innerHTML = ''; // empties the list
+        deviceList1.innerHTML = ''; // empties the list
         // scan for all devices
         ble.scan([], 5, app.onDiscoverDevice, app.onError);
     },
@@ -47,16 +45,14 @@ var app = {
 
         listItem.dataset.deviceId = device.id;  // TODO
         listItem.innerHTML = html;
-        deviceList.appendChild(listItem);
+        deviceList1.appendChild(listItem);
 		global_deviceid = device.id;
 		global_name = device.name;
     },
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
-				ble.notify(deviceId,battery.service,battery.char,app.onreceiveData,app.onError);
-				disconnectButton.dataset.deviceId = deviceId;
-                app.showDetailPage();
+				alert("dd");
 			};
 		ble.connect(deviceId,onConnect,app.onError);
 	},
