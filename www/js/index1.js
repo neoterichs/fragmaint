@@ -52,7 +52,7 @@ var app1 = {
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
-				alert("dd");
+				app1.refreshDeviceList();
 			};
 		ble.connect(deviceId,onConnect,app1.onError);
 	},
