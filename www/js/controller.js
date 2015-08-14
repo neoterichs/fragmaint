@@ -343,8 +343,8 @@ angular.module('starter.controllers', [])
 			myPopup.then(function(res) {
 				
      			var x = res.split(",");
-
-				if(x[0] == true)paired_deviceid.splice(paired_device_index,1,{deviceid:"E333",devicename:x[2],p_status:"Y"});
+				console.log(x[0]);
+				if(x[0] == "true")paired_deviceid.splice(paired_device_index,1,{deviceid:"E333",devicename:x[2],p_status:"Y"});
 				else paired_deviceid.splice(paired_device_index,1);
 				var response = JSON.stringify(paired_deviceid);
 				console.log(response);
