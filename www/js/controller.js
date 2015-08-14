@@ -308,7 +308,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('pairedCTRL',function($scope,$ionicPopup,$ionicModal,$stateParams,$rootScope) {
-	// code for Schedule
+	// code for Schedule fetch
 	var paired_device_index = 0;
 	if(localStorage.getItem("schedule_list") != ""){
 		var response = JSON.parse(localStorage.getItem("schedule_list"));
