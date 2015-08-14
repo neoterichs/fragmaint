@@ -307,14 +307,14 @@ angular.module('starter.controllers', [])
 	app1.initialize1();
 })
 
-.controller('pairedCTRL', function($scope,$ionicPopup,$ionicModal,$stateParams,$rootScope) {
+.controller('pairedCTRL',function($scope,$ionicPopup,$ionicModal,$stateParams,$rootScope) {
 	// code for Schedule
-	paired_deviceid.push({deviceid:"sdfdsff",devicename:"ankush"});
-	var Shd_json = JSON.parse(localStorage.getItem("schedule_details_data"));
-	
-	
-	var Shd_response = Shd_json;
-	$scope.Shd_response = Shd_response;
+	var paired_device_index = 0;
+	if(localStorage.getItem("schedule_list") != ""){
+		var response = JSON.parse(localStorage.getItem("schedule_list"));
+		for(var i in response)schedule_data.push(response[i]);
+		$scope.Shd_response = response;
+	}
 	
 	// code for paired Device
 	var response = JSON.stringify(paired_deviceid);
@@ -322,19 +322,43 @@ angular.module('starter.controllers', [])
 	if(response.length > 0)$scope.response = response;
 	else $scope.response = "N";
 	
-	$scope.pairedsetting = function(){
-		$ionicPopup.show({
-		  template: '<div class="row"><div class="col">Unpair Device</div><div class="col col-50"><label class="toggle toggle-balanced" id="unpairdevice"><input type="checkbox" id="unpaircheckbox1"><div class="track"><div class="handle"></div></div></label></div></div><div class="row"><div class="col">Schedule</div><div class="col col-50"><select><option value="1" ng-repeat="data in Shd_response">{{data.sname}}</option></select></div></div>',
-		  title: 'Setting',
-		  scope: $scope,
-		  buttons: [
-			{
-			  text: 'Ok',
-			  type: 'button-calm'
-			},
-		  ]
-		})
+	$scope.pairedsetting = function(val,item,devicename){
+		paired_device_index = $scope.response.indexOf(item);
+		console.log(val);
+		if(val == "Y"){
+			var myPopup = $ionicPopup.show({
+			  template: '<div class="row"><div class="col">Unpair Device</div><div class="col col-50"><label class="toggle toggle-balanced" id="unpairdevice"><input type="checkbox" checked  id="unpaircheckbox1"><div class="track"><div class="handle"></div></div></label></div></div><div class="row"><div class="col">Schedule</div><div class="col col-50"><select id="schedule_value"><option value="{{data.sname}}" ng-repeat="data in Shd_response">{{data.sname}}</option></select></div></div>',
+			  title: 'Setting',
+			  scope: $scope,
+			  buttons: [
+				{
+				  text: 'Ok',
+				  type: 'button-calm',
+				  onTap:function(e){
+					  return unpaircheckbox1.checked+","+schedule_value.value+","+devicename;
+       			  }
+				},
+			  ]
+			});
+			myPopup.then(function(res) {
+				
+     			var x = res.split(",");
+
+				if(x[0] == true)paired_deviceid.splice(paired_device_index,1,{deviceid:"E333",devicename:x[2],p_status:"Y"});
+				else paired_deviceid.splice(paired_device_index,1);
+				var response = JSON.stringify(paired_deviceid);
+				console.log(response);
+				$rootScope.$broadcast('paird_device_list',response);
+   			});
+		}
 	};
+	
+	//===============================reload Paired device list=================================================================================================
+	$rootScope.$on('paird_device_list',function(event, args) {
+		var response = JSON.parse(args);
+		$scope.shdresponse = {sname : $stateParams.schedulename};
+		$scope.response = response;
+	})
 })
 
 // function to conver miliseconds to time

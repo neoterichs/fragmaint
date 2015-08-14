@@ -2,6 +2,8 @@
 
 //global uuid id
 var paired_deviceid = [];
+paired_deviceid.push({deviceid:"E333",devicename:"Windows",p_status:"Y"});
+paired_deviceid.push({deviceid:"E333",devicename:"Iphone",p_status:"Y"});
 var global_name = "";
 //string to ascii
 function stringToBytes(string) {
@@ -80,8 +82,8 @@ var app1 = {
 						}
 					}
 				}
-				else paired_deviceid.push({deviceid:deviceId,devicename:deviceName});
-				if(flag)paired_deviceid.push({deviceid:deviceId,devicename:deviceName});
+				else paired_deviceid.push({deviceid:deviceId,devicename:deviceName,p_status:"Y"});
+				if(flag)paired_deviceid.push({deviceid:deviceId,devicename:deviceName,p_status:"Y"});
 				app1.refreshDeviceList();
 			};
 		var deviceName = e.target.dataset.deviceName;
