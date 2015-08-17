@@ -335,16 +335,15 @@ angular.module('starter.controllers', [])
 				  text: 'Ok',
 				  type: 'button-calm',
 				  onTap:function(e){
-					  return unpaircheckbox1.checked+","+schedule_value.value+","+devicename;
+					  return unpaircheckbox1.checked+","+schedule_value.value+","+devicename+","+item.deviceid;
        			  }
 				},
 			  ]
 			});
 			myPopup.then(function(res) {
-				
-     			var x = res.split(",");
-				console.log(x[0]);
-				if(x[0] == "true")paired_deviceid.splice(paired_device_index,1,{deviceid:"E333",devicename:x[2],p_status:"Y"});
+				var x = res.split(",");
+				console.log(x[3]);
+				if(x[0] == "true")paired_deviceid.splice(paired_device_index,1,{deviceid:x[3],devicename:x[2],p_status:"Y"});
 				else paired_deviceid.splice(paired_device_index,1);
 				var response = JSON.stringify(paired_deviceid);
 				console.log(response);
