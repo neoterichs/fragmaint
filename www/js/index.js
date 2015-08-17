@@ -2,7 +2,7 @@
 
 //global uuid id
 var global_deviceid = "";
-var global_name = "";
+
 //string to ascii
 function stringToBytes(string) {
    var array = new Uint8Array(string.length);
@@ -27,8 +27,11 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         refreshButton.addEventListener('touchstart', this.refreshDeviceList, false);
+        batteryStateButton.addEventListener('touchstart', this.readBatteryState, false);
         disconnectButton.addEventListener('touchstart', this.disconnect, false);
         deviceList.addEventListener('touchstart', this.connect, false); // assume not scrolling
+		sendButton.addEventListener('touchstart', this.sendData, false);
+		readButton.addEventListener('touchstart', this.readBatteryState, false);
 	},
     onDeviceReady: function() {
         app.refreshDeviceList();
@@ -49,18 +52,18 @@ var app = {
         listItem.innerHTML = html;
         deviceList.appendChild(listItem);
 		global_deviceid = device.id;
-		global_name = device.name;
     },
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
-				ble.notify(deviceId,battery.service,battery.char,app.onreceiveData,app.onError);
-				disconnectButton.dataset.deviceId = deviceId;
+				ble.notify(deviceId,battery.service,battery.char,app.onBatteryLevelChange,app.onError);
+				batteryStateButton.dataset.deviceId = deviceId;
+                disconnectButton.dataset.deviceId = deviceId;
                 app.showDetailPage();
 			};
 		ble.connect(deviceId,onConnect,app.onError);
 	},
-    onreceiveData: function(data) {
+    onBatteryLevelChange: function(data) {
         console.log(data);
         var message;
         var a = bytesToString(data);
@@ -70,22 +73,17 @@ var app = {
         var deviceId = event.target.dataset.deviceId;
         ble.disconnect(deviceId, app.showMainPage, app.onError);
     },
-	sendData: function(device,status,intensity) {
-		var data = ""; 
-		if(status)data = stringToBytes("2"+device+"1"+intensity+"3DA");
-		else data = stringToBytes("2"+device+"0"+intensity+"3DA");
+	sendData: function(event) {
+		var data = stringToBytes("hello");
 		ble.write(global_deviceid,battery.service,battery.char,data,app.showDetailPage,app.onError);
 	},
-	showMainPage: function() {
+    showMainPage: function() {
         mainPage.hidden = false;
         detailPage.hidden = true;
-		bletitle.innerHTML = "Choose a peripheral"
     },
     showDetailPage: function() {
         mainPage.hidden = true;
         detailPage.hidden = false;
-		bletitle.innerHTML = "Device Control"
-		disconnectButton.innerHTML = "Disconnect from "+global_name;
     },
 	onError: function(reason) {
        // alert("ERROR: " + reason); // real apps should use notification.alert
