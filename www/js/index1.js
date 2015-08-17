@@ -69,25 +69,23 @@ var app1 = {
 		}
 	},
     connect: function(e) {
-        var deviceId = e.target.dataset.deviceId,
-			onConnect = function(){
-				var response1 = JSON.stringify(paired_deviceid);
-				response1 = JSON.parse(response1);
-				var flag = false;
-				if(response1.length > 0){
-					for(var i in response1){
-						if(response1[i].deviceid != deviceId){
-							flag = true;
-							break;
-						}
-					}
-				}
-				else paired_deviceid.push({deviceid:deviceId,devicename:deviceName,p_status:"Y"});
-				if(flag)paired_deviceid.push({deviceid:deviceId,devicename:deviceName,p_status:"Y"});
-				app1.refreshDeviceList();
-			};
+        var deviceId = e.target.dataset.deviceId;
 		var deviceName = e.target.dataset.deviceName;
-		ble.connect(deviceId,onConnect,app1.onError);
+		var response1 = JSON.stringify(paired_deviceid);
+		response1 = JSON.parse(response1);
+		var flag = false;
+		if(response1.length > 0){
+			for(var i in response1){
+				if(response1[i].deviceid != deviceId){
+					flag = true;
+					break;
+				}
+			}
+		}
+		else paired_deviceid.push({deviceid:deviceId,devicename:deviceName,p_status:"Y"});
+		if(flag)paired_deviceid.push({deviceid:deviceId,devicename:deviceName,p_status:"Y"});
+		app1.refreshDeviceList();
+		
 	},
     disconnect: function(event) {
         var deviceId = event.target.dataset.deviceId;

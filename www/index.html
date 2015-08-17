@@ -1,34 +1,482 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+<html ng-app="ionicApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Tabs Example</title>
+	<script src="js/jquery-2.1.1.min.js"></script>
+    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="lib/ionic-timepicker/dist/style.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/templates.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.js"></script>
+    <script src="js/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/index1.js"></script>
+</head>
+<body>
+<ion-nav-bar class="header-bar">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+</ion-nav-bar>
+             
+<ion-nav-view></ion-nav-view>
 
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>SensorTag</title>
-    </head>
-    <body>
-        <div class="app">
-            <p style="text-align:center; padding-top: 20px;">Choose a peripheral with a battery service</p>
-            <div id="mainPage">
-            	<div id="jsondevicelist"></div>
-                <ul id="deviceList">
-                </ul>
-                <button id="refreshButton">Refresh</button>
-            </div>
-            <div id="detailPage">
-                <div id="batteryState"></div>
-                 <button id="sendButton">Send data</button>
-                 <button id="readButton">Read data</button>
-                <button id="batteryStateButton">Read Battery State</button>
-                <button id="disconnectButton">Disconnect</button>
-            </div>
+<script id="templates/tabs.html" type="text/ng-template">
+<ion-tabs class="tabs-icon-bottom">
+    <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+      <ion-nav-view name="home-tab"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Settings" icon="ion-android-settings" href="#/tab/setting">
+      <ion-nav-view name="setting-tab"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="About" icon="ion-ios-information" href="#/tab/about">
+      <ion-nav-view name="about-tab"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Contact" icon="ion-ios-world" ui-sref="tabs.contact">
+      <ion-nav-view name="contact-tab"></ion-nav-view>
+    </ion-tab>
+</ion-tabs>
+</script>
+
+<script id="templates/home.html" type="text/ng-template">
+  <ion-view view-title="Home">
+    <ion-content>
+    <div class="app">
+        <p id="bletitle" style="text-align:center; padding-top: 20px;">Choose a peripheral</p>
+        <div id="mainPage">
+            <button id="refreshButton" class="button button-full" style="background-color:#0898A1; color:#fff;">Refresh List</button>
+            <div id="jsondevicelist"></div>
+            <ul id="deviceList">
+            </ul>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+        <div id="detailPage">
+            <div id="batteryState"></div>
+                <ul class="list">
+                    
+                    <li class="item item-toggle">
+                     P1
+                     <label class="toggle toggle-balanced" id="sendButton1">
+                       <input type="checkbox" id="checkbox1" ng-model="data.status1" ng-click="changestatus('1',data.status1,data.pickup1)">
+                       <div class="track">
+                         <div class="handle"></div>
+                       </div>
+                     </label>
+                    </li>
+                    <div class="range range-calm">
+                        <i class="icon ion-ios-bolt-outline"></i>
+                        <input id="range1" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('1',data.status1,data.pickup1)" ng-model="data.pickup1">
+                        <i class="icon ion-ios-bolt"></i>
+                    </div>
+                    
+                    <li class="item item-toggle">
+                     P2
+                     <label class="toggle toggle-balanced" id="sendButton2">
+                       <input type="checkbox" id="checkbox2" ng-model="data.status2" ng-click="changestatus('2',data.status2,data.pickup2)">
+                       <div class="track">
+                         <div class="handle"></div>
+                       </div>
+                     </label>
+                    </li>
+                    <div class="range range-calm">
+                        <i class="icon ion-ios-bolt-outline"></i>
+                        <input id="range2" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('2',data.status2,data.pickup2)"  ng-model="data.pickup2" value="{{data.pickup2}}">
+                        <i class="icon ion-ios-bolt"></i>
+                    </div>
+                    <div  id="range21">
+                        
+                    </div>
+                    
+                    <li class="item item-toggle">
+                     P3
+                     <label class="toggle toggle-balanced" id="sendButton3">
+                       <input type="checkbox" id="checkbox3" ng-model="data.status3" ng-click="changestatus('3',data.status3,data.pickup3)">
+                       <div class="track">
+                         <div class="handle"></div>
+                       </div>
+                     </label>
+                    </li>
+                    <div class="range range-calm">
+                        <i class="icon ion-ios-bolt-outline"></i>
+                        <input id="range3" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('3',data.status3,data.pickup3)"  ng-model="data.pickup3" value="{{data.pickup3}}">
+                        <i class="icon ion-ios-bolt"></i>
+                    </div>
+                    
+                    <li class="item item-toggle">
+                     P4
+                     <label class="toggle toggle-balanced" id="sendButton4">
+                       <input type="checkbox" id="checkbox4" ng-model="data.status4" ng-click="changestatus('4',data.status4,data.pickup4)">
+                       <div class="track">
+                         <div class="handle"></div>
+                       </div>
+                     </label>
+                    </li>
+                    <div class="range range-calm">
+                        <i class="icon ion-ios-bolt-outline"></i>
+                        <input id="range4" type="range" name="volume" min="1" max="5" step="1" ng-change="changestatus('4',data.status4,data.pickup4)"  ng-model="data.pickup4" value="{{data.pickup4}}">
+                        <i class="icon ion-ios-bolt"></i>
+                    </div>
+                </ul>
+            <button id="disconnectButton" class="button button-full button-assertive"></button>
+        </div>
+    </div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/facts.html" type="text/ng-template">
+  <ion-view view-title="Facts">
+    <ion-content>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/facts2.html" type="text/ng-template">
+  <ion-view view-title="Also Factual">
+    <ion-content class="padding">
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/setting.html" type="text/ng-template">
+  <ion-view view-title="Settings">
+    <ion-content>
+        <ul class="list">
+            <li><a href="#/tab/schedule" class="item item-icon-right">Schedule</a></li>
+			<li><a href="#/tab/devicesetting" class="item item-icon-right">Device Settings</a></li>
+        </ul>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/devicesetting.html" type="text/ng-template">
+<ion-view view-title="Device Settings">
+	<ion-content>
+		<ul class="list">
+            <li><a href="#/tab/scan" class="item item-icon-right">Scan Devices</a></li>
+			<li><a href="#/tab/paired" class="item item-icon-right">Paired Devices</a></li>
+        </ul>
+	</ion-content>
+</ion-view>
+</script>
+
+<script id="templates/scan.html" type="text/ng-template">
+  <ion-view view-title="Scan Devices">
+    <ion-content>
+		<div class="app1" style="padding-top:0px;">
+			<div id="mainPage">
+				<button id="refreshButton1" class="button button-full button-stable" style="margin-top:-1px;">Refresh List</button>
+				<ul id="deviceList1">
+				</ul>
+			</div>
+		</div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/paired.html" type="text/ng-template">
+  <ion-view view-title="Paired Devices">
+    <ion-content>
+        <ul class="list">
+            <li ng-repeat="data in response" ng-if="response != 'N'" ng-click="pairedsetting(data.p_status,data,data.devicename)"><a class="item">{{data.devicename}}</a></li>
+			<li ng-repeat="data in response" ng-if="response == 'N'"><a class="item"><center>No Device paired</center></a></li>
+		</ul>
+    </ion-content>
+  </ion-view>
+</script>
+    
+<script id="templates/scheduledetail.html" type="text/ng-template">
+  <ion-view view-title="Details">
+  	<ion-nav-buttons side="right">
+		<button class="button button-block login-button button-clear" style="color:#fff; margin:0px;" ng-click="scheduledetailmodal.show()" style="margin-top:-0px;">
+			Add Details
+		</button>
+		
+	</ion-nav-buttons>
+	<ion-content>
+	<div class="row" style="padding:0px;">
+		<div class="col-25" style=" float:right;">
+			<button class="button button-icon icon ion-ios-minus-outline" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+		</div>
+		<div class="col-50"><h1 class="title"></h1></div>
+		<div class="col-25" >
+			<button class="button button-icon icon" style=" float:right;" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">Edit</button>
+		</div>
+	</div>
+		<!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+		<ion-list  show-delete="data.showDelete" show-reorder="data.showReorder" >
+			<ion-item ng-repeat="data in response track by $index" ng-if="data.sname == shdresponse.sname"  item="item" class="item-remove-animate">
+			   {{data.sname}}&nbsp;&nbsp;&nbsp;&nbsp;{{data.stime}}&nbsp;{{data.etime}}
+			  <ion-delete-button class="ion-ios-trash" ng-click="onItemDelete(data)"  style="padding:1px;"></ion-delete-button>
+			  <ion-reorder-button class="font_pancil ion-edit" ng-click="onItemEdit(data)"></ion-reorder-button>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+  </ion-view>
+</script>
+
+<script id="tabs/scheduledetailmodal.html" type="text/ng-template">
+  <ion-modal-view>
+	<ion-header-bar class="bar bar-header header-bar">
+	  <h1 class="title" style="color:#fff;">Add Detail</h1>
+	  <button class="button button-clear button-primary" ng-click="scheduledetailmodal.hide()">Cancel</button>
+	</ion-header-bar>
+	<ion-content>
+	<div class="row item">
+	  <div class="col">Start Time</div>
+	  	<div class="col col-50">
+	  		<ionic-timepicker etime="slots[0].epochTime" format="slots[0].format" step="slots[0].step" callback="timePickerCallback">
+				<standard-time-meridian etime='slots[0].epochTime'></standard-time-meridian>
+			</ionic-timepicker>
+		</div>
+	</div>
+	<div class="row item">
+		<div class="col">End Time</div>
+	  	<div class="col col-50">
+	  		<ionic-timepicker etime="slots[1].epochTime" format="slots[1].format" step="slots[1].step" callback="timePickerCallback1">
+				<standard-time-meridian etime='slots[1].epochTime'></standard-time-meridian>
+			</ionic-timepicker>
+		</div>
+	</div>
+	
+	<div class="row item">
+		<div class="col">Device_1</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device1status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device1intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="row item">
+		<div class="col">Device_2</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device2status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device2intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>
+		
+	<div class="row item">
+		<div class="col">Device_3</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device3status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device3intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>		
+					
+	<div class="row item">
+		<div class="col">Device_4</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device4status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device4intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>		
+	<button id="refreshButton" class="button button-full" style="background-color:#0898A1; color:#fff;" ng-click="savescheduledetail(user)">Save</button>
+	</ion-content>
+  </ion-modal-view>
+</script>
+
+<script id="tabs/scheduleEditmodal.html" type="text/ng-template">
+  <ion-modal-view>
+	<ion-header-bar class="bar bar-header header-bar">
+	  <h1 class="title" style="color:#fff;">Add Detail</h1>
+	  <button class="button button-clear button-primary" ng-click="scheduleEditmodal.hide()">Cancel</button>
+	</ion-header-bar>
+	<ion-content>
+	<div class="row item">
+	  <div class="col">Start Time</div>
+	  	<div class="col col-50">
+	  		<ionic-timepicker etime="slots[0].epochTime" format="slots[0].format" step="slots[0].step" callback="timePickerCallback">
+				<standard-time-meridian etime='slots[0].epochTime'></standard-time-meridian>
+			</ionic-timepicker>
+		</div>
+	</div>
+	<div class="row item">
+		<div class="col">End Time</div>
+	  	<div class="col col-50">
+	  		<ionic-timepicker etime="slots[1].epochTime" format="slots[1].format" step="slots[1].step" callback="timePickerCallback1">
+				<standard-time-meridian etime='slots[1].epochTime'></standard-time-meridian>
+			</ionic-timepicker>
+		</div>
+	</div>
+	
+	<div class="row item">
+		<div class="col">Device_1</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device1status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device1intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="row item">
+		<div class="col">Device_2</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device2status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device2intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>
+		
+	<div class="row item">
+		<div class="col">Device_3</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device3status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device3intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>		
+					
+	<div class="row item">
+		<div class="col">Device_4</div>
+	  	<div class="col col-25">
+	  		<select ng-model="user.device4status">
+				<option value="1">ON</option>
+				<option value="0">OFF</option>
+			</select>
+		</div>
+		<div class="col col-25">
+	  		<select ng-model="user.device4intensity">
+				<option value="1">Low</option>
+				<option value="3">Medium</option>
+				<option value="5">High</option>
+			</select>
+		</div>
+	</div>		
+	<button id="refreshButton" class="button button-full" style="background-color:#0898A1; color:#fff;" ng-click="updatescheduledetail(user)">Update</button>
+	</ion-content>
+  </ion-modal-view>
+</script>
+
+<script id="templates/schedule.html" type="text/ng-template">
+  <ion-view view-title="Schedule">
+    <ion-content>
+    <div class="bar bar-header">
+      <h1 class="title">Add Schedule</h1>
+    </div>
+    <div class="row  bar bar-subheader">
+        <div class="col-75" >
+            <label class="item-input">
+            <input type="text" placeholder="Schedule Name" ng-model="data.schedulename">
+            </label>
+        </div>
+        <div class="col-25">
+            <button class="button button-small button-clear" style="font-weight:600; color:#0898A1; float:right" ng-click="saveschedule(data.schedulename)">
+                ADD
+            </button>
+        </div>
+    </div>
+    <div class="list" style="padding-top:88px;">
+        <div class="item item-divider" style="border-top:20px solid #078189">
+            <center style="font-weight: 500; font-size:17px; ">Schedule List</center>
+        </div>
+        
+        <a class="item item-icon-right" ui-sref="tabs.scheduledetail({schedulename:data.sname})" ng-repeat="data in response track by $index">
+            {{data.sname}}
+            <i class="icon ion-ios-arrow-right icon-right"></i>
+        </a>
+    </div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/about.html" type="text/ng-template">
+  <ion-view view-title="About">
+	<ion-content class="padding">
+	  <h3>Create hybrid mobile apps with the web technologies you love.</h3>
+	  <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
+	  <p>Built with Sass and optimized for AngularJS.</p>
+	  <p>
+		<a class="button icon icon-right ion-chevron-right" href="#/tab/navstack">Tabs Nav Stack</a>
+	  </p>
+	</ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/nav-stack.html" type="text/ng-template">
+  <ion-view view-title="Tab Nav Stack">
+	<ion-content class="padding">
+	  <p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
+	</ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/contact.html" type="text/ng-template">
+  <ion-view title="Contact">
+	<ion-content>
+	  <div class="list">
+		<div class="item">
+		  @IonicFramework
+		</div>
+		<div class="item">
+		  @DriftyTeam
+		</div>
+	  </div>
+	</ion-content>
+  </ion-view>
+</script>
+
+</body>
+<script src="js/app.js"></script>
+<script src="js/controller.js"></script>
 </html>
