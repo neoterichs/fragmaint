@@ -45,7 +45,7 @@ var app1 = {
 		var flag = false;
 		if(response1.length > 0){
 			for(var i in response1){
-				if(response1[i].deviceid != device.id){
+				if(response1[i].deviceid == device.id){
 					flag = true;
 					break;
 				}
@@ -59,7 +59,7 @@ var app1 = {
 			deviceList1.appendChild(listItem);
 		}
 		
-		if(flag){
+		if(!flag){
 			var listItem = document.createElement('li'),
 			html = '<b>' + device.name + '</b><br/>' + 'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' + device.id;
 			listItem.dataset.deviceId = device.id;  // TODO
