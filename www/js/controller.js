@@ -4,6 +4,7 @@ var schedule_detail_data = [];
 
 angular.module('starter.controllers', [])
 
+
 .controller('HomeTabCtrl', function($scope) {
 	//======================================Initiallize app=================================================
 	app.initialize();

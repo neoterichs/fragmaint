@@ -1,6 +1,7 @@
 angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.controllers'])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
+$ionicConfigProvider.tabs.position('bottom'); //showing  tabs at bottom in android
   $stateProvider
     .state('tabs', {
       url: "/tab",
