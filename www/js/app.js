@@ -50,14 +50,6 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 		}
       }
     })
-	.state('tabs.devicesetting', {
-      url: "/devicesetting",
-      views: {
-        'setting-tab' :{
-          templateUrl: "templates/devicesetting.html"
-		}
-      }
-    })
 	.state('tabs.scheduledetail', {
 		url: "/scheduledetail/:schedulename",
 		views: {
@@ -66,25 +58,7 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 			controller: 'scheduledetailCTRL'
 		  }
 		}
-	 })
-	 .state('tabs.scan', {
-		url: "/scan",
-		views: {
-		  'setting-tab': {
-				templateUrl: "templates/scan.html",
-				controller: 'scanCTRL'
-			}
-		}
-	 })
-	 .state('tabs.paired', {
-		url: "/paired",
-		views: {
-		  'setting-tab': {
-				templateUrl: "templates/paired.html",
-				controller: 'pairedCTRL'
-			}
-		}
-	 })
+	  })
     .state('tabs.about', {
       url: "/about",
       views: {
@@ -93,7 +67,8 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
         }
       }
     })
-	.state('tabs.navstack', {
+	
+    .state('tabs.navstack', {
       url: "/navstack",
       views: {
         'about-tab': {
@@ -111,6 +86,7 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
     });
 
 	$urlRouterProvider.otherwise("/tab/home");
+
 })
 
 .directive('standardTimeMeridian', function () {
@@ -153,6 +129,7 @@ angular.module('ionicApp', ['ionic','ngCordova','ionic-timepicker','starter.cont
 			scope.$watch('etime', function (newValue, oldValue) {
 				scope.stime = epochParser(scope.etime, 'time');
 			});
+
 		}
 	};
 })
