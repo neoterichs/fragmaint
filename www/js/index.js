@@ -39,21 +39,26 @@ var app = {
         ble.scan([], 5, app.onDiscoverDevice, app.onError);
     },
     onDiscoverDevice: function(device) {
-		console.log(JSON.stringify(device));
-        var listItem = document.createElement('li'),
-            html = '<b>' + device.name + '</b><br/>' +
-                'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
-                device.id;
-
-        listItem.dataset.deviceId = device.id;  // TODO
+		console.log(JSON.stringify(paired_deviceid));
+		
+		var response1 = JSON.stringify(paired_deviceid);
+		response1 = JSON.parse(response1);
+		if(response1.length > 0){
+			for(var i in response1){
+				var listItem = document.createElement('li'),
+            		html = '<b>' + response1[i].devicename + '</b><br/>' +response1[i].deviceid
+				listItem.dataset.deviceId = response1[i].deviceid;  // TODO		
+			}
+		}
+		
         listItem.innerHTML = html;
         deviceList.appendChild(listItem);
-		global_deviceid = device.id;
-		global_name = device.name;
-    },
+	},
     connect: function(e) {
         var deviceId = e.target.dataset.deviceId,
             onConnect = function() {
+				global_deviceid = deviceId;
+				//global_name = device.name;
 				ble.notify(deviceId,battery.service,battery.char,app.onreceiveData,app.onError);
 				disconnectButton.dataset.deviceId = deviceId;
                 app.showDetailPage();
