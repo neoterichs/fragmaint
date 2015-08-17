@@ -2,8 +2,8 @@
 
 //global uuid id
 var paired_deviceid = [];
-paired_deviceid.push({deviceid:"E333",devicename:"Windows",p_status:"Y"});
-paired_deviceid.push({deviceid:"E333",devicename:"Iphone",p_status:"Y"});
+//paired_deviceid.push({deviceid:"E333",devicename:"Windows",p_status:"Y"});
+//paired_deviceid.push({deviceid:"E333",devicename:"Iphone",p_status:"Y"});
 var global_name = "";
 //string to ascii
 function stringToBytes(string) {
