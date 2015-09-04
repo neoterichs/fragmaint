@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* header background color */
+.header-bar{background-color:#0898A1; color:#FFF;}
+
+.font_pancil::before{font-size:24px!important; margin-left:16px;}
+
+/*Changed styled sheet in ionic 
+--tabs-background-dark--
+
+
+*/
